@@ -25,7 +25,6 @@
    TOKENS
    ========================================================= */
 :root {
-  /* base palette */
   --color-ink:        #0E0E0F;
   --color-ink-2:      #111114;
   --color-ink-alt:    #0B0B0D;
@@ -41,7 +40,6 @@
   --color-ai-edge:    rgba(120, 180, 195, 0.32);
   --color-ai-pulse:   rgba(200, 163, 104, 0.85);
 
-  /* semantic */
   --bg:           var(--color-ink);
   --text:         var(--color-paper);
   --text-muted:   var(--color-mute);
@@ -49,7 +47,6 @@
   --text-quiet:   var(--color-quiet);
   --accent:       var(--color-brass);
 
-  /* type */
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-body:    'Inter', system-ui, -apple-system, sans-serif;
 
@@ -63,6 +60,7 @@
   --fs-lead:      clamp(1.0625rem, 1.6vw, 1.3125rem);
   --fs-body:      clamp(1rem, 1.2vw, 1.125rem);
   --fs-meta:      0.8125rem;
+  --fs-pull:      clamp(1.5rem, 3.6vw, 2.5rem);
 
   --lh-tight:     1.04;
   --lh-snug:      1.2;
@@ -72,7 +70,6 @@
   --track-meta:   0.14em;
   --track-loose:  0.05em;
 
-  /* spacing 8px base */
   --space-2:  0.5rem;
   --space-3:  1rem;
   --space-4:  1.5rem;
@@ -88,14 +85,12 @@
   --container-max: 1280px;
   --prose-max:     66ch;
 
-  /* motion */
   --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
   --ease-content: cubic-bezier(0.16, 1, 0.3, 1);
   --dur-fast:     280ms;
   --dur-base:     420ms;
   --dur-slow:     640ms;
 
-  /* layout */
   --nav-h:         60px;
   --sticky-bar-h:  64px;
 
@@ -137,10 +132,10 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 a { color: inherit; text-decoration: none; }
 ul, ol { padding: 0; list-style: none; }
 input, textarea { font: inherit; color: inherit; }
+blockquote, cite { font-style: normal; }
 ::selection { background: var(--color-brass); color: var(--color-ink); }
 main:focus { outline: none; }
 
-/* analog grain — fixed, ultra-subtle */
 body::before {
   content: '';
   position: fixed;
@@ -180,7 +175,6 @@ body::before {
   border-radius: 2px;
 }
 
-/* scroll progress */
 .scroll-progress {
   position: fixed;
   top: 0; left: 0;
@@ -252,7 +246,6 @@ p { text-wrap: pretty; }
   margin-block: var(--space-4) var(--space-5);
 }
 
-/* section break mark */
 .section-mark {
   display: block;
   width: 1px;
@@ -538,6 +531,28 @@ section { padding-block: var(--section-py); position: relative; }
   max-width: 52ch;
   line-height: 1.55;
 }
+.hero__epigraph {
+  margin-top: var(--space-5);
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--color-brass-mute);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--text);
+  font-variation-settings: 'wght' 380, 'opsz' 96;
+  max-width: 48ch;
+}
+.hero__epigraph cite {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
 .hero__ctas {
   margin-top: var(--space-6);
   display: flex;
@@ -595,7 +610,7 @@ section { padding-block: var(--section-py); position: relative; }
   font-variation-settings: 'opsz' 96;
   font-feature-settings: var(--feat-display);
 }
-.pillar p { color: var(--text-muted); max-width: 52ch; }
+.pillar p { color: var(--text-muted); max-width: 52ch; line-height: 1.55; }
 @media (hover: hover) {
   .pillar:hover { border-color: var(--color-stroke); }
 }
@@ -610,7 +625,59 @@ section { padding-block: var(--section-py); position: relative; }
 }
 
 /* =========================================================
-   KNOWLEDGE MAP — editorial
+   PULL-QUOTE — chapter-break with weight
+   ========================================================= */
+.pullquote {
+  padding-block: clamp(var(--space-7), 9vw, var(--space-9));
+  background: var(--color-ink);
+  position: relative;
+  border-block: 1px solid var(--color-stroke-2);
+}
+.pullquote--alt { background: var(--color-ink-alt); }
+.pullquote__inner {
+  max-width: 920px;
+  margin-inline: auto;
+  padding-inline: var(--container-px);
+  position: relative;
+  z-index: 2;
+}
+.pullquote__mark {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--accent);
+  margin-bottom: var(--space-4);
+}
+.pullquote__text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-pull);
+  line-height: 1.3;
+  letter-spacing: var(--track-tight);
+  color: var(--text);
+  font-variation-settings: 'wght' 400, 'opsz' 144;
+  text-wrap: balance;
+}
+.pullquote__attribution {
+  margin-top: var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  color: var(--accent);
+  font-style: normal;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.pullquote__source {
+  color: var(--text-soft);
+  font-weight: 400;
+}
+
+/* =========================================================
+   KNOWLEDGE MAP
    ========================================================= */
 .clusters {
   display: grid;
@@ -622,7 +689,7 @@ section { padding-block: var(--section-py); position: relative; }
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--color-stroke);
 }
@@ -631,6 +698,13 @@ section { padding-block: var(--section-py); position: relative; }
   font-size: 0.8125rem;
   color: var(--text-soft);
   font-variant-numeric: lining-nums tabular-nums;
+}
+.cluster__lead {
+  margin-bottom: var(--space-4);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  max-width: 38ch;
 }
 .cluster ul { display: grid; gap: 0; }
 .theme {
@@ -767,7 +841,33 @@ section { padding-block: var(--section-py); position: relative; }
   font-variation-settings: 'wght' 440, 'opsz' 96;
   font-feature-settings: var(--feat-display);
 }
-.principle p { color: var(--text-muted); max-width: 50ch; }
+.principle__quote {
+  margin-block: var(--space-3);
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--color-brass-mute);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text);
+  font-variation-settings: 'wght' 380, 'opsz' 96;
+  max-width: 50ch;
+}
+.principle__quote cite {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.principle__quote cite b {
+  color: var(--accent);
+  font-weight: 500;
+}
+.principle p { color: var(--text-muted); max-width: 50ch; line-height: 1.55; }
 
 @media (min-width: 720px) and (max-width: 899px) {
   .principles-grid { grid-template-columns: repeat(2, 1fr); column-gap: var(--space-6); row-gap: var(--space-6); }
@@ -878,7 +978,6 @@ section { padding-block: var(--section-py); position: relative; }
   50%      { opacity: 1;   transform: scale(1.4); }
 }
 
-/* AI demo input */
 .ai-demo {
   margin-top: var(--space-6);
   display: grid;
@@ -1259,6 +1358,10 @@ section { padding-block: var(--section-py); position: relative; }
         Цифровая платформа на философии Маргулана Сейсембая. О миссии, энергии,
         кайдзене, осознанности и решениях — для тех, кто хочет думать дольше, чем на один шаг.
       </p>
+      <blockquote class="hero__epigraph">
+        «Стремитесь к счастью. Успех — побочный продукт стремления к счастью.»
+        <cite>Маргулан Сейсембай · О мотивации</cite>
+      </blockquote>
       <div class="hero__ctas">
         <a href="#mentor" class="btn btn--primary">Задать вопрос наставнику</a>
         <a href="#philosophy" class="btn btn--secondary">Изучить принципы <span class="arrow">→</span></a>
@@ -1274,42 +1377,52 @@ section { padding-block: var(--section-py); position: relative; }
         <h2 class="section-title" id="philosophyTitle">Философское ядро</h2>
         <p class="lead">
           Не разрозненные советы. Архитектура, в которой каждое решение становится осмысленным,
-          а каждое действие — частью пути.
+          а каждое действие — частью пути. Пять опор, от которых отстраивается всё остальное.
         </p>
       </div>
       <div class="pillars">
         <article class="pillar" data-reveal>
           <span class="pillar__num">01</span>
           <h3>Миссия</h3>
-          <p>Если нет миссии, цели разрозненны. Миссия превращает действия в путь, а решения — в выбор.</p>
+          <p>Если нет миссии, цели разрозненны — каждое усилие про другое. Миссия отвечает на вопрос: для чего ты пришёл в этот мир, что тебя драйвит, что будит по утрам. Найдёшь её — отсечёшь всё лишнее.</p>
         </article>
         <article class="pillar" data-reveal style="--reveal-delay: 80ms">
           <span class="pillar__num">02</span>
           <h3>Счастье</h3>
-          <p>Здоровье, безопасность, свобода, любимые люди, любимое дело. Пять опор. Ни одна не заменима другой.</p>
+          <p>Здоровье, безопасность, свобода, любимые люди, любимое дело. Пять опор. Их наличие не гарантирует счастья. Но отсутствие любой — гарантирует несчастье.</p>
         </article>
         <article class="pillar" data-reveal style="--reveal-delay: 160ms">
           <span class="pillar__num">03</span>
           <h3>Энергия</h3>
-          <p>Главный ресурс. Деньги, связи, власть, репутация — её формы. Без энергии стратегия мертва.</p>
+          <p>Главный ресурс мира. Деньги, власть, слава, репутация, связи — её законсервированные формы. Энергодефицитный человек берёт. Энергопрофицитный — отдаёт. Из энергии — всё.</p>
         </article>
         <article class="pillar" data-reveal style="--reveal-delay: 240ms">
           <span class="pillar__num">04</span>
           <h3>Эффективность</h3>
-          <p>Результат, делённый на затраты. Не скорость и не объём — отношение. Дисциплина важнее подвига.</p>
+          <p>Результат, делённый на затраты. Не скорость, не объём — отношение. Главный закон: чем эффективнее, тем жизнеспособнее. Управлять временем нельзя — энергией можно.</p>
         </article>
         <article class="pillar" data-reveal style="--reveal-delay: 320ms">
           <span class="pillar__num">05</span>
           <h3>Осознанность</h3>
-          <p>Пространство между стимулом и реакцией. Свобода выбора живёт здесь — не до и не после.</p>
+          <p>Пространство между стимулом и реакцией. В этом пространстве — свобода выбора. Радость и счастье — это выбор, не случайность. Каждое утро ты решаешь, какой день прожить.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <span class="section-mark" aria-hidden="true"></span>
+  <aside class="pullquote pullquote--alt" aria-label="Цитата">
+    <div class="pullquote__inner" data-reveal>
+      <span class="pullquote__mark" aria-hidden="true"></span>
+      <blockquote class="pullquote__text">
+        «В этом мире самый главный ресурс — это энергия. Деньги, власть, слава, связи — её законсервированные формы.»
+      </blockquote>
+      <p class="pullquote__attribution">
+        Маргулан Сейсембай <span class="pullquote__source">· Об энергии и ресурсах</span>
+      </p>
+    </div>
+  </aside>
 
-  <section class="knowledge section--alt" id="knowledge" aria-labelledby="knowledgeTitle">
+  <section class="knowledge" id="knowledge" aria-labelledby="knowledgeTitle">
     <div class="container">
       <div class="section-head" data-reveal>
         <p class="meta"><span class="meta__index">II</span>Карта знаний</p>
@@ -1317,6 +1430,7 @@ section { padding-block: var(--section-py); position: relative; }
         <p class="lead">
           Двадцать три темы в шести кластерах. Каждая тема — узел смысла:
           миссия ведёт к энергии, энергия — к делу, дело — к капиталу.
+          Всё связано — как пять опор счастья.
         </p>
       </div>
       <div class="clusters">
@@ -1326,6 +1440,7 @@ section { padding-block: var(--section-py); position: relative; }
             <p class="meta">Внутренний мир</p>
             <span class="cluster__count">6 тем</span>
           </header>
+          <p class="cluster__lead">Шесть тем о фундаменте: миссия, счастье, страх, тишина, осознанность, свобода. Без этого внешнее не строится.</p>
           <ul role="list">
             <li class="theme"><span class="theme__name">Миссия и предназначение</span><span class="theme__desc">направление, без которого цели разрозненны</span></li>
             <li class="theme"><span class="theme__name">Счастье и гармония</span><span class="theme__desc">пять опор счастья как состояние, не цель</span></li>
@@ -1341,6 +1456,7 @@ section { padding-block: var(--section-py); position: relative; }
             <p class="meta">Энергия и метод</p>
             <span class="cluster__count">6 тем</span>
           </header>
+          <p class="cluster__lead">Шесть тем об управлении главным ресурсом и о методе, который делает его расходование осмысленным.</p>
           <ul role="list">
             <li class="theme"><span class="theme__name">Энергия как ресурс</span><span class="theme__desc">источники и утечки</span></li>
             <li class="theme"><span class="theme__name">Кайдзен-планирование</span><span class="theme__desc">поток маленьких действий, не список задач</span></li>
@@ -1356,6 +1472,7 @@ section { padding-block: var(--section-py); position: relative; }
             <p class="meta">Дело</p>
             <span class="cluster__count">6 тем</span>
           </header>
+          <p class="cluster__lead">Шесть тем о бизнесе как системе, лидерстве как переходе от власти к вдохновению, и о возможностях, которые видят подготовленные.</p>
           <ul role="list">
             <li class="theme"><span class="theme__name">Бизнес</span><span class="theme__desc">система, не геройство</span></li>
             <li class="theme"><span class="theme__name">Лидерство</span><span class="theme__desc">от власти к вдохновению и экосистеме</span></li>
@@ -1371,6 +1488,7 @@ section { padding-block: var(--section-py); position: relative; }
             <p class="meta">Капитал</p>
             <span class="cluster__count">3 темы</span>
           </header>
+          <p class="cluster__lead">Три темы о деньгах как форме энергии — и о терпении, без которого инвестиции превращаются в спекуляцию.</p>
           <ul role="list">
             <li class="theme"><span class="theme__name">Деньги</span><span class="theme__desc">форма энергии, побочный продукт</span></li>
             <li class="theme"><span class="theme__name">Инвестиции</span><span class="theme__desc">терпение в действии</span></li>
@@ -1383,6 +1501,7 @@ section { padding-block: var(--section-py); position: relative; }
             <p class="meta">Жизнь</p>
             <span class="cluster__count">2 темы</span>
           </header>
+          <p class="cluster__lead">Две темы о том, что остаётся после бизнеса и решений. То, ради чего всё это.</p>
           <ul role="list">
             <li class="theme"><span class="theme__name">Дети</span><span class="theme__desc">продолжение миссии</span></li>
             <li class="theme"><span class="theme__name">Биография и путешествия</span><span class="theme__desc">опыт как материал мышления</span></li>
@@ -1394,6 +1513,7 @@ section { padding-block: var(--section-py); position: relative; }
             <p class="meta">Опоры мысли</p>
             <span class="cluster__count">1 тема</span>
           </header>
+          <p class="cluster__lead">Три способа смотреть на мир: религия, наука, философия. Три объектива одной системы.</p>
           <ul role="list">
             <li class="theme"><span class="theme__name">Религия, наука и философия</span><span class="theme__desc">три способа смотреть на мир</span></li>
           </ul>
@@ -1467,54 +1587,105 @@ section { padding-block: var(--section-py); position: relative; }
       <div class="section-head" data-reveal>
         <p class="meta"><span class="meta__index">V</span>Принципы</p>
         <h2 class="section-title" id="principlesTitle">Восемь аксиом системы</h2>
-        <p class="lead">Опоры, на которых держится всё остальное.</p>
+        <p class="lead">Опоры, на которых держится всё остальное. Каждая — с цитатой из выступлений Маргулана.</p>
       </div>
       <div class="principles-grid">
+
         <article class="principle" data-reveal>
           <span class="principle__num">01</span>
           <h3>Миссия важнее разрозненных целей.</h3>
+          <blockquote class="principle__quote">
+            «Если вы не определили цель вашей жизни, то все ваши цели разрознены, и вы занимаетесь чем попало.»
+            <cite><b>Маргулан Сейсембай</b> · Определите свою миссию</cite>
+          </blockquote>
           <p>Без направления каждая задача — про другое. Цели имеют смысл только внутри пути.</p>
         </article>
+
         <article class="principle" data-reveal style="--reveal-delay: 80ms">
           <span class="principle__num">02</span>
           <h3>Счастье — это здоровье, безопасность, свобода, любимые люди и любимое дело.</h3>
-          <p>Пять опор. Ни одна из них не заменима другой. Деньги без них — провал, замаскированный под победу.</p>
+          <blockquote class="principle__quote">
+            «Наличие всех этих факторов не гарантирует счастье. Но отсутствие любого из них гарантирует несчастье.»
+            <cite><b>Маргулан Сейсембай</b> · О пяти компонентах счастья</cite>
+          </blockquote>
+          <p>Пять опор. Ни одна не заменима другой. Деньги без них — провал, замаскированный под победу.</p>
         </article>
+
         <article class="principle" data-reveal>
           <span class="principle__num">03</span>
           <h3>Энергия — главный ресурс.</h3>
-          <p>Деньги, связи, власть, репутация — её формы. Без энергии любая стратегия мертва.</p>
+          <blockquote class="principle__quote">
+            «В этом мире самый главный ресурс — это энергия. Весь наш мир — это сплошное энергетическое поле.»
+            <cite><b>Маргулан Сейсембай</b> · Об энергии</cite>
+          </blockquote>
+          <p>Деньги, связи, власть, репутация — её формы. Без энергии любая стратегия мертва. Энергодефицитный человек становится берущим — не из злобы, а потому что нечем поделиться.</p>
         </article>
+
         <article class="principle" data-reveal style="--reveal-delay: 80ms">
           <span class="principle__num">04</span>
           <h3>Эффективность — результат, делённый на затраты.</h3>
-          <p>Не скорость, не объём — отношение. Это инженерное определение, не эмоциональное.</p>
+          <blockquote class="principle__quote">
+            «В этом мире самый главный закон — это закон эффективности. Все законы подвержены закону эффективности.»
+            <cite><b>Маргулан Сейсембай</b> · Об эффективности</cite>
+          </blockquote>
+          <p>Не скорость, не объём — отношение. Это инженерное определение, не эмоциональное. Чем эффективнее, тем жизнеспособнее.</p>
         </article>
+
         <article class="principle" data-reveal>
           <span class="principle__num">05</span>
           <h3>Кайдзен — поток маленьких действий, не список задач.</h3>
-          <p>Маленькое улучшение каждый день. Дисциплина дешевле подвига и сильнее его.</p>
+          <blockquote class="principle__quote">
+            «Кайдзен-планирование разливает бочку по стаканам. В единицу времени делать одно дело. Создавать поток.»
+            <cite><b>Маргулан Сейсембай</b> · 4 инструмента продуктивного дня</cite>
+          </blockquote>
+          <p>Маленькое улучшение каждый день. Дисциплина дешевле подвига и сильнее его. Накопительный эффект — главный двигатель.</p>
         </article>
+
         <article class="principle" data-reveal style="--reveal-delay: 80ms">
           <span class="principle__num">06</span>
           <h3>Осознанность — пространство между стимулом и реакцией.</h3>
-          <p>В этом пространстве — свобода выбора. Чем оно шире, тем больше у вас власти над жизнью.</p>
+          <blockquote class="principle__quote">
+            «Радость и счастье — это выбор. Это не то, что с вами случается автоматически. Это выбор.»
+            <cite><b>Маргулан Сейсембай</b> · Об обидах и разочарованиях</cite>
+          </blockquote>
+          <p>В этом пространстве — свобода выбора. Чем оно шире, тем больше у вас власти над жизнью. Каждое утро вы выбираете, какой день прожить.</p>
         </article>
+
         <article class="principle" data-reveal>
           <span class="principle__num">07</span>
           <h3>Ошибки — материал эволюции.</h3>
-          <p>Без них не растут. Вопрос не в том, как избежать ошибок, а как извлекать из них следующий шаг.</p>
+          <blockquote class="principle__quote">
+            «Учёные знают: успех приходит в среднем после 10 попыток. Они отменяют ошибку и продолжают.»
+            <cite><b>Маргулан Сейсембай</b> · Совет молодым</cite>
+          </blockquote>
+          <p>Без них не растут. Вопрос не в том, как избежать ошибок, а как извлекать из них следующий шаг. По закону Парето — последние 20% усилий приносят 80% результата.</p>
         </article>
+
         <article class="principle" data-reveal style="--reveal-delay: 80ms">
           <span class="principle__num">08</span>
           <h3>Успех — это счастье, а не деньги или статус.</h3>
+          <blockquote class="principle__quote">
+            «Я видел много успешных людей, которые не были счастливы. Но я не видел ни одного счастливого человека, который считал себя неуспешным.»
+            <cite><b>Маргулан Сейсембай</b> · Успех — это счастье</cite>
+          </blockquote>
           <p>Деньги — побочный продукт эффективной деятельности. Счастье — её цель.</p>
         </article>
+
       </div>
     </div>
   </section>
 
-  <span class="section-mark" aria-hidden="true"></span>
+  <aside class="pullquote pullquote--alt" aria-label="Цитата">
+    <div class="pullquote__inner" data-reveal>
+      <span class="pullquote__mark" aria-hidden="true"></span>
+      <blockquote class="pullquote__text">
+        «Стремиться надо к счастью, ни в коем случае не к успеху. Успех — побочный продукт стремления к счастью.»
+      </blockquote>
+      <p class="pullquote__attribution">
+        Маргулан Сейсембай <span class="pullquote__source">· О мотивации</span>
+      </p>
+    </div>
+  </aside>
 
   <section class="mentor" id="mentor" aria-labelledby="mentorTitle">
     <div class="container">
@@ -1697,7 +1868,6 @@ section { padding-block: var(--section-py); position: relative; }
   let isDesktop = window.innerWidth >= 900;
   let docHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
 
-  /* ===== scroll: nav border + sticky-bar + progress ===== */
   function onScroll() {
     const y = window.scrollY;
     nav.classList.toggle('is-scrolled', y > 8);
@@ -1719,7 +1889,6 @@ section { padding-block: var(--section-py); position: relative; }
     if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
   }, { passive: true });
 
-  /* ===== resize ===== */
   function onResize() {
     isDesktop = window.innerWidth >= 900;
     docHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
@@ -1728,7 +1897,6 @@ section { padding-block: var(--section-py); position: relative; }
   window.addEventListener('resize', onResize, { passive: true });
   window.addEventListener('load', onResize);
 
-  /* ===== mobile menu ===== */
   const focusableSel = 'a, button, [tabindex]:not([tabindex="-1"])';
   let lastFocused = null;
 
@@ -1777,7 +1945,6 @@ section { padding-block: var(--section-py); position: relative; }
     }
   });
 
-  /* ===== reveal animations + cleanup ===== */
   if ('IntersectionObserver' in window && !reduceMotion) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1798,7 +1965,6 @@ section { padding-block: var(--section-py); position: relative; }
     });
   }
 
-  /* ===== transformation path nodes ===== */
   const nodes = document.querySelectorAll('[data-node]');
   if ('IntersectionObserver' in window && nodes.length) {
     const nodeIo = new IntersectionObserver((entries) => {
@@ -1817,7 +1983,6 @@ section { padding-block: var(--section-py); position: relative; }
     nodes.forEach(n => nodeIo.observe(n));
   }
 
-  /* ===== AI typewriter ===== */
   const aiAnswer = document.getElementById('aiAnswer');
   const aiAttribution = document.getElementById('aiAttribution');
 
