@@ -156,46 +156,62 @@
 
 Все токены живут в `:root` в [index.html](index.html). При любых изменениях — **трогаем токены, не hex-значения в местах использования**.
 
-## 3.1 Colors
+## 3.1 Colors — McKinsey × Editorial Hybrid (light)
 
 ### Полная палитра (CSS custom properties)
 
 | Токен | HEX/RGBA | Семантика |
 |-------|----------|-----------|
-| `--color-ink` | `#0E0E0F` | Главный фон, тёплый near-black |
-| `--color-ink-2` | `#111114` | Финал градиента в hero (чуть холоднее) |
-| `--color-ink-alt` | `#0B0B0D` | Фон альтернативных секций (чуть темнее) |
-| `--color-surface` | `#16161A` | Резервный для глубоких поверхностей (сейчас почти не используется) |
-| `--color-stroke` | `#2A2A2C` | Видимые разделители, обводки кнопок |
-| `--color-stroke-2` | `rgba(255,255,255,0.07)` | Тонкие разделители (списки, между секциями) |
-| `--color-paper` | `#F2EFEA` | Основной текст, тёплый off-white |
-| `--color-mute` | `#A8A29A` | Вторичный текст (`.lead`, описания) |
-| `--color-soft` | `#7E7770` | Третичный текст (cluster count, ai-demo hint) |
-| `--color-quiet` | `#5A574F` | Резервный (контраст ниже AA — использовать осторожно) |
-| `--color-brass` | `#C8A368` | **Единственный акцент** — meta-метки, номера, CTA-underlines, focus-кольца |
-| `--color-brass-mute` | `rgba(200,163,104,0.6)` | Brass для второстепенных элементов (chapter index, scroll progress fade) |
-| `--color-ai-glow` | `rgba(120,180,195,0.16)` | Teal radial-glow в Mentor секции |
-| `--color-ai-edge` | `rgba(120,180,195,0.32)` | Teal обводки и edge-линии в AI-блоке |
-| `--color-ai-pulse` | `rgba(200,163,104,0.85)` | Pulse-точка у «О.» и в sticky-bar |
+| `--color-paper` | `#F7F6F2` | Основной фон — off-white, газетная бумага |
+| `--color-paper-2` | `#FBFAF6` | Elevated поверхности (dialogue card, ai-demo) |
+| `--color-paper-alt` | `#F1EEE7` | Альтернативные секции (knowledge, cases, cta-final, footer, pullquote) |
+| `--color-stroke` | `#DAD3C6` | Видимые разделители, обводки cards/cluster heads |
+| `--color-stroke-2` | `rgba(10,31,46,0.10)` | Тонкие разделители (subtle) |
+| `--color-ink` | `#0A1F2E` | Главный текст, deep ink-navy (не чёрный) |
+| `--color-mute` | `#5C6770` | Вторичный текст (`.lead`, описания) |
+| `--color-soft` | `#8B939A` | Третичный текст (placeholder, attribution-soft) |
+| `--color-quiet` | `#B5B8BB` | Резервный (только для marks/lines) |
+| `--color-blue` | `#1F40E6` | **Interactive accent** — CTA, links, focus, AI pulse |
+| `--color-blue-dark` | `#0F2BB8` | Hover для blue (если нужен) |
+| `--color-blue-soft` | `rgba(31,64,230,0.08)` | Blue background tint, node-glow |
+| `--color-terra` | `#B0463A` | **Editorial accent** — Roman numerals, pull-quote, attribution highlights, hero accent line |
+| `--color-terra-mute` | `rgba(176,70,58,0.55)` | Soft terra (chapter index, section marks) |
+| `--color-terra-soft` | `rgba(176,70,58,0.10)` | Hero radial wash |
+| `--color-ai-pulse` | `var(--color-blue)` | Pulse-точка возле «О.» и в sticky-bar |
+| `--color-ai-edge` | `rgba(31,64,230,0.30)` | Edge-линии в AI dialogue card |
+| `--color-ai-glow` | `rgba(31,64,230,0.06)` | Subtle blue radial wash в Mentor section |
 
 ### Семантические алиасы
 
 ```
---bg          → ink
---text        → paper
---text-muted  → mute
---text-soft   → soft
---text-quiet  → quiet
---accent      → brass
+--bg          → paper                /* default page bg */
+--text        → ink                  /* deep navy, not pure black */
+--text-muted  → mute                 /* secondary */
+--text-soft   → soft                 /* tertiary */
+--text-quiet  → quiet                /* marks only */
+--accent      → blue                 /* interactive — CTA, links, focus */
+--accent-warm → terra                /* editorial — Roman numerals, pull-quotes */
 ```
+
+### Дуальный акцент — критичное правило
+
+Этот theme имеет **два разных акцента**, и они НЕ взаимозаменяемы:
+
+- **`--accent` (blue, #1F40E6)** — для всего, что **interactive**: primary CTA hover-state, текст hover-стрелок, focus-кольца, nav menu underline, AI pulse, AI typewriter cursor, theme chevron[open], links в footer hover.
+- **`--accent-warm` (terra, #B0463A)** — для всего, что **editorial**: Roman chapter numerals, hero `__chapter` accent bar, pull-quote left-border, principle-quote left-border, theme-quote left-border, hero h1 italic-accent, pillar/principle/step number colors, section-mark gradient.
+
+Если непонятно куда — спроси: «это интерактивный элемент или редакционный?». Если сомневаешься — `--accent` (blue) для интерактивных, `--accent-warm` (terra) для текстовых акцентов.
 
 ### Правила использования
 
-- **Brass — экономно.** Допустимые места: meta-метки, номера принципов/опор/шагов, focus-кольца, CTA-underlines, attribution-выделения, AI-pulse, scroll-progress, hover-стрелки. **Если на странице brass появляется > 12 раз без видимой иерархии — это перебор.**
-- **Teal — только в AI-зоне.** Mentor section glow + ai-edge + ai-pulse + Demo-badge border. Нигде больше teal не должен появиться.
-- **Никаких градиентов кроме**: hero вертикаль (ink→ink-2), hero radial-overlays (brass + teal sub-1%), section-mark (transparent → brass-mute → transparent), scroll-progress (brass → brass-mute), dialogue top-edge (transparent → ai-edge → transparent).
-- **Никаких ярких цветов.** Всё, что не из палитры — запрещено. Если кажется, что нужен «зелёный success» или «красный error» — пересмотри необходимость.
-- **Контраст:** body Paper-on-Ink ~14:1 (AAA). Mute-on-Ink ~7.5:1 (AA). Soft-on-Ink ~5:1 (AA для большого текста). **Quiet НЕ использовать для текста — только для marks/lines.**
+- **Primary button — filled.** Default: ink-on-paper (deep navy bg, paper text). Hover: blue. Это McKinsey-сигнал — единственное место, где есть filled solid color.
+- **Никаких градиентов кроме**: hero вертикаль (paper-2 → paper), hero radial-overlays (blue-soft + terra-soft), section-mark (transparent → terra-mute → transparent), pullquote borders, dialogue top-edge.
+- **Никаких ярких цветов вне палитры.** Только blue, terra, ink на paper. «Зелёный success» / «красный error» — пересмотри необходимость.
+- **Контраст:** body ink-on-paper ~13:1 (AAA). mute-on-paper ~5.5:1 (AA). soft-on-paper ~3.5:1 (AA для большого текста). **quiet НЕ использовать для текста.**
+
+### История theme'ов
+
+Текущий theme — **Hybrid v2** (light McKinsey-style, 2026-05-01). До этого был **dark editorial v1** (Ink + Brass + Teal). Всё переключение делается через переопределение CSS custom properties в `:root` — JS не трогается, content не трогается. Если когда-либо потребуется revert на dark — это операция уровня одного Edit на блок TOKENS.
 
 ## 3.2 Typography
 
