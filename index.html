@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E0E0F">
+<title>Margulan Personal Mentor AI — Система мышления</title>
+<meta name="description" content="Цифровая система мышления на философии Маргулана Сейсембая. Миссия, энергия, эффективность, кайдзен, осознанность. Personal Mentor AI для решений и жизненных ситуаций.">
+<meta name="robots" content="index, follow">
+<meta name="color-scheme" content="dark">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Margulan Personal Mentor AI">
+<meta property="og:description" content="Цифровая система мышления на философии Маргулана Сейсембая.">
+<meta property="og:locale" content="ru_RU">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230E0E0F'/%3E%3Cpath d='M9 22V10l7 8 7-8v12' stroke='%23C8A368' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..500;1,9..144,380..460&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   TOKENS
+   ========================================================= */
+:root {
+  /* base palette */
+  --color-ink:        #0E0E0F;
+  --color-ink-2:      #111114;
+  --color-ink-alt:    #0B0B0D;
+  --color-stroke:     #2A2A2C;
+  --color-stroke-2:   rgba(255, 255, 255, 0.07);
+  --color-paper:      #F2EFEA;
+  --color-mute:       #A8A29A;
+  --color-soft:       #7E7770;
+  --color-quiet:      #5A574F;
+  --color-brass:      #C8A368;
+  --color-brass-mute: rgba(200, 163, 104, 0.6);
+  --color-ai-glow:    rgba(120, 180, 195, 0.16);
+  --color-ai-edge:    rgba(120, 180, 195, 0.32);
+  --color-ai-pulse:   rgba(200, 163, 104, 0.85);
+
+  /* semantic */
+  --bg:           var(--color-ink);
+  --text:         var(--color-paper);
+  --text-muted:   var(--color-mute);
+  --text-soft:    var(--color-soft);
+  --text-quiet:   var(--color-quiet);
+  --accent:       var(--color-brass);
+
+  /* type */
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+  --feat-display: 'liga' on, 'kern' on, 'salt' on, 'ss01' on;
+  --feat-body:    'kern' on, 'liga' on, 'cv11' on, 'ss01' on;
+
+  --fs-display:   clamp(2.625rem, 8.5vw, 5.75rem);
+  --fs-h1:        clamp(2rem, 5vw, 3.5rem);
+  --fs-h2:        clamp(1.625rem, 3.5vw, 2.5rem);
+  --fs-h3:        clamp(1.25rem, 2vw, 1.5rem);
+  --fs-lead:      clamp(1.0625rem, 1.6vw, 1.3125rem);
+  --fs-body:      clamp(1rem, 1.2vw, 1.125rem);
+  --fs-meta:      0.8125rem;
+
+  --lh-tight:     1.04;
+  --lh-snug:      1.2;
+  --lh-base:      1.6;
+
+  --track-tight:  -0.02em;
+  --track-meta:   0.14em;
+  --track-loose:  0.05em;
+
+  /* spacing 8px base */
+  --space-2:  0.5rem;
+  --space-3:  1rem;
+  --space-4:  1.5rem;
+  --space-5:  2rem;
+  --space-6:  3rem;
+  --space-7:  4rem;
+  --space-8:  6rem;
+  --space-9:  8rem;
+  --space-10: 12rem;
+
+  --section-py:    clamp(var(--space-8), 12vw, var(--space-10));
+  --container-px:  clamp(1.5rem, 5vw, 2rem);
+  --container-max: 1280px;
+  --prose-max:     66ch;
+
+  /* motion */
+  --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-content: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast:     280ms;
+  --dur-base:     420ms;
+  --dur-slow:     640ms;
+
+  /* layout */
+  --nav-h:         60px;
+  --sticky-bar-h:  64px;
+
+  --z-progress: 25;
+  --z-sticky:   10;
+  --z-nav:      20;
+  --z-overlay:  50;
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 16px);
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-base);
+  font-weight: 400;
+  font-feature-settings: var(--feat-body);
+  font-variant-numeric: lining-nums proportional-nums;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  hanging-punctuation: first last allow-end;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  position: relative;
+}
+img, svg, video { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; padding: 0; }
+a { color: inherit; text-decoration: none; }
+ul, ol { padding: 0; list-style: none; }
+input, textarea { font: inherit; color: inherit; }
+::selection { background: var(--color-brass); color: var(--color-ink); }
+main:focus { outline: none; }
+
+/* analog grain — fixed, ultra-subtle */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-px);
+  position: relative;
+  z-index: 2;
+}
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; top: -100px; left: var(--container-px); z-index: 100;
+  padding: 12px 20px; background: var(--color-paper); color: var(--color-ink);
+  font-weight: 500; transition: top var(--dur-fast) var(--ease-out);
+}
+.skip-link:focus { top: 12px; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* scroll progress */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 1px;
+  width: 100%;
+  z-index: var(--z-progress);
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  background: linear-gradient(90deg, var(--accent), var(--color-brass-mute));
+  opacity: 0.55;
+  transition: transform 80ms linear;
+}
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--track-tight);
+  font-feature-settings: var(--feat-display);
+  text-wrap: balance;
+}
+h1 { font-size: var(--fs-h1); line-height: var(--lh-tight); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); font-family: var(--font-body); font-weight: 500; letter-spacing: 0; }
+
+p { text-wrap: pretty; }
+
+.meta {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  color: var(--accent);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.meta__index {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-variation-settings: 'wght' 400, 'opsz' 9;
+  color: var(--color-brass-mute);
+  text-transform: none;
+}
+.meta__index::after {
+  content: '·';
+  margin-left: 10px;
+  color: var(--color-stroke);
+}
+.lead {
+  font-size: var(--fs-lead);
+  color: var(--text-muted);
+  max-width: var(--prose-max);
+  line-height: 1.55;
+  font-feature-settings: var(--feat-body);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  margin-block: var(--space-4) var(--space-5);
+}
+
+/* section break mark */
+.section-mark {
+  display: block;
+  width: 1px;
+  height: 32px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, transparent, var(--color-brass-mute), transparent);
+  opacity: 0.5;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 26px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border: 1px solid var(--color-stroke);
+  background: transparent;
+  color: var(--text);
+  position: relative;
+  transition: border-color var(--dur-base) var(--ease-out),
+              color var(--dur-base) var(--ease-out),
+              opacity var(--dur-base) var(--ease-out),
+              background var(--dur-base) var(--ease-out);
+  text-align: center;
+  min-height: 48px;
+  cursor: pointer;
+  overflow: hidden;
+}
+.btn[disabled], .btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+
+.btn--primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  left: 26px; right: 26px; bottom: 12px;
+  height: 1px; background: var(--accent);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+@media (hover: hover) {
+  .btn--primary:hover { border-color: var(--accent); background: rgba(200, 163, 104, 0.04); }
+  .btn--primary:hover::before { transform: scaleX(1); transform-origin: left; }
+  .btn--primary:hover::after { transform: scaleX(1); }
+}
+.btn--secondary {
+  border: none;
+  padding: 8px 0;
+  color: var(--text);
+}
+.btn--secondary .arrow {
+  display: inline-block;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+@media (hover: hover) {
+  .btn--secondary:hover { color: var(--accent); }
+  .btn--secondary:hover .arrow { transform: translateX(6px); }
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--container-px);
+  background: rgba(14, 14, 15, 0.78);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-base) var(--ease-out),
+              background var(--dur-base) var(--ease-out);
+}
+.nav.is-scrolled {
+  border-bottom-color: var(--color-stroke-2);
+  background: rgba(14, 14, 15, 0.88);
+}
+.nav__brand {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav__brand i { color: var(--accent); font-style: normal; }
+.nav__menu { display: none; gap: 36px; align-items: center; }
+.nav__menu a {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  transition: color var(--dur-base) var(--ease-out);
+  position: relative;
+}
+.nav__menu a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -6px;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.nav__menu a:hover { color: var(--text); }
+.nav__menu a:hover::after { transform: scaleX(1); }
+
+.burger {
+  width: 44px; height: 44px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+.burger span {
+  width: 22px; height: 1.5px;
+  background: var(--text);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { transform: translateY(-3px) rotate(-45deg); }
+
+@media (min-width: 900px) {
+  .nav__menu { display: flex; }
+  .burger { display: none; }
+}
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: var(--bg);
+  padding: 80px var(--container-px) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity var(--dur-base) var(--ease-content),
+              transform var(--dur-base) var(--ease-content),
+              visibility var(--dur-base) var(--ease-content);
+}
+.mobile-menu.is-open {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+.mobile-menu nav { display: flex; flex-direction: column; gap: var(--space-4); }
+.mobile-menu nav a {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  color: var(--text);
+  letter-spacing: var(--track-tight);
+  font-feature-settings: var(--feat-display);
+  padding-block: 6px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--dur-base) var(--ease-content),
+              transform var(--dur-base) var(--ease-content);
+}
+.mobile-menu.is-open nav a {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(80ms + 50ms * var(--i, 0));
+}
+.mobile-menu .btn { align-self: flex-start; }
+.mobile-menu__disclaimer {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+body.menu-open { overflow: hidden; }
+
+/* =========================================================
+   SECTION BASE
+   ========================================================= */
+section { padding-block: var(--section-py); position: relative; }
+.section-head { margin-bottom: var(--space-7); }
+.section-head .meta + h2 { margin-top: var(--space-3); }
+.section-head .lead { margin-top: var(--space-4); }
+
+.section--alt { background: var(--color-ink-alt); }
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: calc(var(--nav-h) + var(--space-5));
+  padding-bottom: var(--space-8);
+  background: linear-gradient(180deg, var(--color-ink) 0%, var(--color-ink-2) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(200, 163, 104, 0.06), transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(120, 180, 195, 0.04), transparent 55%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(0,0,0,0.35) 100%);
+}
+.hero__inner { position: relative; z-index: 2; }
+.hero__chapter {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: var(--space-4);
+}
+.hero__chapter::before {
+  content: '';
+  width: 18px; height: 1px;
+  background: var(--accent);
+  display: inline-block;
+}
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: var(--track-tight);
+  font-variation-settings: 'wght' 420, 'opsz' 144;
+  font-feature-settings: var(--feat-display);
+  animation: breathe 9s ease-in-out infinite;
+  max-width: 18ch;
+}
+.hero__title-accent {
+  font-style: italic;
+  font-variation-settings: 'wght' 420, 'opsz' 144;
+}
+.hero__sub {
+  margin-top: var(--space-5);
+  font-size: var(--fs-lead);
+  color: var(--text-muted);
+  max-width: 52ch;
+  line-height: 1.55;
+}
+.hero__ctas {
+  margin-top: var(--space-6);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+.hero__cue {
+  position: absolute;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px; height: 48px;
+  background: linear-gradient(180deg, transparent, var(--text-soft));
+  animation: cuePulse 3s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { font-variation-settings: 'wght' 410, 'opsz' 144; }
+  50%      { font-variation-settings: 'wght' 460, 'opsz' 144; }
+}
+@keyframes cuePulse {
+  0%, 100% { opacity: 0.25; }
+  50%      { opacity: 0.85; }
+}
+
+/* =========================================================
+   PHILOSOPHY CORE
+   ========================================================= */
+.pillars {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-7);
+}
+.pillar {
+  display: grid;
+  gap: var(--space-2);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--color-stroke-2);
+  transition: border-color var(--dur-slow) var(--ease-out);
+}
+.pillar__num {
+  font-family: var(--font-body);
+  font-size: var(--fs-meta);
+  letter-spacing: var(--track-meta);
+  color: var(--accent);
+  font-weight: 500;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.pillar h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.125rem);
+  font-weight: 400;
+  letter-spacing: var(--track-tight);
+  font-variation-settings: 'opsz' 96;
+  font-feature-settings: var(--feat-display);
+}
+.pillar p { color: var(--text-muted); max-width: 52ch; }
+@media (hover: hover) {
+  .pillar:hover { border-color: var(--color-stroke); }
+}
+
+@media (min-width: 720px) and (max-width: 899px) {
+  .pillars { grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
+}
+@media (min-width: 900px) {
+  .pillars { grid-template-columns: repeat(5, 1fr); gap: var(--space-5); }
+  .pillar { padding-bottom: var(--space-4); }
+  .pillar h3 { font-size: 1.625rem; }
+}
+
+/* =========================================================
+   KNOWLEDGE MAP — editorial
+   ========================================================= */
+.clusters {
+  display: grid;
+  gap: var(--space-7);
+  margin-top: var(--space-6);
+}
+.cluster { display: grid; gap: 0; }
+.cluster__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-stroke);
+}
+.cluster__count {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--text-soft);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.cluster ul { display: grid; gap: 0; }
+.theme {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-stroke-2);
+  transition: padding-left var(--dur-base) var(--ease-out);
+}
+.theme:last-child { border-bottom: none; }
+.theme__name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 400;
+  letter-spacing: var(--track-tight);
+  color: var(--text);
+  font-variation-settings: 'opsz' 96;
+  font-feature-settings: var(--feat-display);
+}
+.theme__desc {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+@media (min-width: 720px) {
+  .clusters { grid-template-columns: repeat(2, 1fr); column-gap: var(--space-7); row-gap: var(--space-7); }
+}
+@media (min-width: 1100px) {
+  .clusters { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* =========================================================
+   HOW IT WORKS
+   ========================================================= */
+.steps { display: grid; gap: var(--space-5); margin-top: var(--space-6); }
+.step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+.step__num {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  color: var(--accent);
+  font-variation-settings: 'wght' 380, 'opsz' 48;
+  line-height: 1;
+  padding-top: 4px;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.step h3 {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 400;
+  letter-spacing: var(--track-tight);
+  margin-bottom: var(--space-2);
+  font-feature-settings: var(--feat-display);
+}
+.step p { color: var(--text-muted); max-width: 48ch; }
+
+@media (min-width: 720px) and (max-width: 899px) {
+  .steps { grid-template-columns: repeat(2, 1fr); column-gap: var(--space-6); row-gap: var(--space-5); }
+}
+@media (min-width: 900px) {
+  .steps { grid-template-columns: repeat(2, 1fr); column-gap: var(--space-7); row-gap: var(--space-6); }
+}
+
+/* =========================================================
+   USE CASES
+   ========================================================= */
+.cases-list { display: grid; gap: 0; margin-top: var(--space-6); }
+.case-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-stroke-2);
+  transition: padding-left var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+.case__text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+  font-weight: 400;
+  letter-spacing: var(--track-tight);
+  font-variation-settings: 'wght' 400, 'opsz' 96;
+  color: var(--text);
+  transition: color var(--dur-base) var(--ease-out);
+}
+.case__arrow {
+  font-family: var(--font-body);
+  color: var(--text-soft);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-out),
+              color var(--dur-base) var(--ease-out);
+  flex-shrink: 0;
+}
+@media (hover: hover) {
+  .case-link:hover { padding-left: 12px; border-bottom-color: var(--color-stroke); }
+  .case-link:hover .case__arrow { opacity: 1; transform: translateX(0); color: var(--accent); }
+}
+.case-link:focus-visible .case__arrow { opacity: 1; transform: translateX(0); color: var(--accent); }
+
+/* =========================================================
+   PRINCIPLES
+   ========================================================= */
+.principles-grid {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+.principle { display: grid; gap: var(--space-2); }
+.principle__num {
+  font-family: var(--font-body);
+  font-size: var(--fs-meta);
+  letter-spacing: var(--track-meta);
+  color: var(--accent);
+  font-weight: 500;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.principle h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+  line-height: 1.2;
+  letter-spacing: var(--track-tight);
+  font-variation-settings: 'wght' 440, 'opsz' 96;
+  font-feature-settings: var(--feat-display);
+}
+.principle p { color: var(--text-muted); max-width: 50ch; }
+
+@media (min-width: 720px) and (max-width: 899px) {
+  .principles-grid { grid-template-columns: repeat(2, 1fr); column-gap: var(--space-6); row-gap: var(--space-6); }
+}
+@media (min-width: 900px) {
+  .principles-grid { grid-template-columns: repeat(2, 1fr); column-gap: var(--space-8); row-gap: var(--space-7); }
+  .principle:nth-child(even):not(:last-child) { transform: translateY(32px); }
+}
+
+/* =========================================================
+   AI MENTOR PREVIEW
+   ========================================================= */
+.mentor { position: relative; isolation: isolate; }
+.mentor::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, var(--color-ai-glow), transparent 65%);
+  z-index: -1;
+  pointer-events: none;
+}
+.dialogue {
+  margin-top: var(--space-6);
+  padding: clamp(var(--space-5), 5vw, var(--space-7));
+  background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.012));
+  border: 1px solid var(--color-ai-edge);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  position: relative;
+  max-width: 760px;
+  margin-inline: 0;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset,
+              0 30px 60px -30px rgba(0,0,0,0.45);
+}
+.dialogue::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 24px; right: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-ai-edge), transparent);
+}
+.dialogue__exchange { display: grid; gap: var(--space-5); }
+.dialogue__q, .dialogue__a {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: var(--space-3);
+}
+.dialogue__label {
+  font-family: var(--font-body);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: var(--track-meta);
+  color: var(--accent);
+  padding-top: 8px;
+  position: relative;
+  font-variant-numeric: lining-nums;
+}
+.dialogue__a .dialogue__label::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: -10px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-ai-pulse);
+  animation: aiPulse 2.4s ease-in-out infinite;
+}
+.dialogue__q p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  font-variation-settings: 'wght' 380, 'opsz' 96;
+  line-height: 1.4;
+  color: var(--text);
+  font-feature-settings: var(--feat-display);
+}
+.dialogue__answer {
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 1.7em;
+}
+.dialogue__answer.is-typing::after {
+  content: '▍';
+  display: inline-block;
+  color: var(--color-ai-edge);
+  margin-left: 2px;
+  animation: cursorBlink 1s step-end infinite;
+}
+.dialogue__attribution {
+  margin-top: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--fs-meta);
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  color: var(--text-soft);
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+.dialogue__attribution.is-shown { opacity: 1; }
+.dialogue__attribution b { color: var(--accent); font-weight: 500; }
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes aiPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.4); }
+}
+
+/* AI demo input */
+.ai-demo {
+  margin-top: var(--space-6);
+  display: grid;
+  gap: var(--space-3);
+  max-width: 760px;
+  padding: var(--space-4);
+  border: 1px dashed var(--color-stroke);
+  background: linear-gradient(180deg, rgba(255,255,255,0.012), transparent);
+  position: relative;
+}
+.ai-demo::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 24px; width: 64px;
+  height: 1px;
+  background: var(--color-ai-edge);
+}
+.ai-demo__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.ai-demo__badge {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  color: var(--color-ai-edge);
+  border: 1px solid var(--color-ai-edge);
+  padding: 4px 10px;
+}
+.ai-demo__hint {
+  font-family: var(--font-body);
+  font-size: var(--fs-meta);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.ai-demo__input {
+  width: 100%;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--color-stroke);
+  color: var(--text-muted);
+  padding: var(--space-3);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: none;
+  min-height: 96px;
+}
+.ai-demo__input::placeholder { color: var(--text-soft); font-style: italic; }
+.ai-demo__input:disabled { cursor: not-allowed; opacity: 0.7; }
+.ai-demo__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.ai-demo__note {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  max-width: 48ch;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   TRANSFORMATION PATH
+   ========================================================= */
+.path { position: relative; }
+.timeline {
+  position: relative;
+  margin-top: var(--space-7);
+  display: grid;
+  gap: var(--space-5);
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--color-stroke), transparent);
+}
+.node {
+  position: relative;
+  padding-left: 40px;
+  display: grid;
+  gap: 4px;
+  opacity: 0.4;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+.node.is-visible { opacity: 1; }
+.node::before {
+  content: '';
+  position: absolute;
+  left: 6px; top: 12px;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--color-stroke);
+  transition: border-color var(--dur-slow) var(--ease-out),
+              background var(--dur-slow) var(--ease-out),
+              box-shadow var(--dur-slow) var(--ease-out);
+}
+.node.is-visible::before {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(200, 163, 104, 0.12);
+}
+.node__label {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 400;
+  letter-spacing: var(--track-tight);
+  font-variation-settings: 'wght' 440, 'opsz' 96;
+  font-feature-settings: var(--feat-display);
+}
+.node__hint { font-family: var(--font-body); font-size: 0.875rem; color: var(--text-muted); }
+
+@media (min-width: 900px) {
+  .timeline {
+    grid-auto-flow: column;
+    grid-template-columns: repeat(7, 1fr);
+    gap: var(--space-3);
+    padding-top: var(--space-6);
+  }
+  .timeline::before {
+    top: 0; bottom: auto;
+    left: 5%; right: 5%;
+    width: auto; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-stroke), transparent);
+  }
+  .node { padding-left: 0; padding-top: 28px; text-align: left; }
+  .node::before { left: 0; top: -5px; }
+  .node__label { font-size: 1.125rem; }
+}
+
+/* =========================================================
+   CTA FINAL
+   ========================================================= */
+.cta-list { display: grid; gap: 0; margin-top: var(--space-6); }
+.cta-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--color-stroke-2);
+  transition: border-color var(--dur-slow) var(--ease-out),
+              padding-left var(--dur-slow) var(--ease-out);
+}
+.cta-item__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: var(--track-tight);
+  font-variation-settings: 'wght' 420, 'opsz' 144;
+  font-feature-settings: var(--feat-display);
+  color: var(--text);
+  display: block;
+}
+.cta-item__desc {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+}
+.cta-item__arrow {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  color: var(--text-soft);
+  transition: transform var(--dur-base) var(--ease-out),
+              color var(--dur-base) var(--ease-out);
+  flex-shrink: 0;
+}
+@media (hover: hover) {
+  .cta-item:hover { border-color: var(--accent); padding-left: 8px; }
+  .cta-item:hover .cta-item__arrow { color: var(--accent); transform: translateX(8px); }
+}
+.cta-item:focus-visible .cta-item__arrow { color: var(--accent); transform: translateX(8px); }
+
+/* =========================================================
+   DISCLAIMER STRIP
+   ========================================================= */
+.disclaimer-strip {
+  text-align: center;
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  padding-block: var(--space-7);
+  letter-spacing: 0.01em;
+  max-width: 60ch;
+  margin-inline: auto;
+  padding-inline: var(--container-px);
+  line-height: 1.55;
+  font-style: italic;
+  font-family: var(--font-display);
+  font-variation-settings: 'wght' 380, 'opsz' 96;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  border-top: 1px solid var(--color-stroke-2);
+  padding-block: var(--space-7) calc(var(--sticky-bar-h) + var(--space-7));
+  background: var(--color-ink);
+  position: relative;
+  z-index: 2;
+}
+.footer__grid { display: grid; gap: var(--space-6); }
+.footer__col h4 {
+  font-family: var(--font-body);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-3);
+}
+.footer__intro {
+  color: var(--text-muted);
+  max-width: 36ch;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.footer__col ul { display: grid; gap: 12px; }
+.footer__col a {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  transition: color var(--dur-base) var(--ease-out);
+}
+.footer__col a:hover { color: var(--text); }
+.footer__bottom {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-stroke-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+@media (min-width: 720px) {
+  .footer__grid { grid-template-columns: 2fr repeat(3, 1fr); gap: var(--space-5); }
+  .footer { padding-bottom: var(--space-7); }
+}
+
+/* =========================================================
+   STICKY ASK BAR
+   ========================================================= */
+.sticky-bar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: var(--sticky-bar-h);
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--container-px);
+  background: rgba(14, 14, 15, 0.88);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border-top: 1px solid var(--color-stroke-2);
+  transform: translateY(0);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.sticky-bar.is-hidden { transform: translateY(100%); }
+.sticky-bar__note {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.sticky-bar__note::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-ai-pulse);
+  animation: aiPulse 2.4s ease-in-out infinite;
+}
+.sticky-bar__cta {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--accent);
+}
+@media (min-width: 900px) {
+  .sticky-bar { display: none; }
+}
+
+/* =========================================================
+   REVEAL ANIMATIONS
+   ========================================================= */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 720ms var(--ease-content), transform 720ms var(--ease-content);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+[data-reveal].is-revealed { transition: none; will-change: auto; }
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  html { scroll-behavior: auto; }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .hero__title { animation: none; }
+  .hero__cue { display: none; }
+  .scroll-progress { display: none; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Перейти к основному содержимому</a>
+
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="#top" class="nav__brand">Margulan <i>·</i> Mentor AI</a>
+  <nav class="nav__menu" aria-label="Основная навигация">
+    <a href="#philosophy">Философия</a>
+    <a href="#knowledge">Карта</a>
+    <a href="#how">Как работает</a>
+    <a href="#principles">Принципы</a>
+    <a href="#mentor">Спросить</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Навигация">
+  <nav aria-label="Мобильная навигация">
+    <a href="#philosophy" style="--i: 0">Философское ядро</a>
+    <a href="#knowledge"  style="--i: 1">Карта знаний</a>
+    <a href="#how"        style="--i: 2">Как работает</a>
+    <a href="#cases"      style="--i: 3">Жизненные ситуации</a>
+    <a href="#principles" style="--i: 4">Принципы</a>
+    <a href="#mentor"     style="--i: 5">Personal Mentor AI</a>
+    <a href="#path"       style="--i: 6">Путь</a>
+  </nav>
+  <a href="#mentor" class="btn btn--primary">Задать вопрос наставнику</a>
+  <p class="mobile-menu__disclaimer">Симуляция на основе публичных материалов. Не реальный человек.</p>
+</div>
+
+<main id="main" tabindex="-1">
+
+  <section class="hero" id="top" aria-labelledby="heroTitle">
+    <div class="container hero__inner">
+      <span class="hero__chapter">Глава 0 · Введение</span>
+      <p class="meta">Margulan Personal Mentor AI</p>
+      <h1 class="hero__title" id="heroTitle">
+        Не сумма советов.<br><span class="hero__title-accent">Система мышления.</span>
+      </h1>
+      <p class="hero__sub">
+        Цифровая платформа на философии Маргулана Сейсембая. О миссии, энергии,
+        кайдзене, осознанности и решениях — для тех, кто хочет думать дольше, чем на один шаг.
+      </p>
+      <div class="hero__ctas">
+        <a href="#mentor" class="btn btn--primary">Задать вопрос наставнику</a>
+        <a href="#philosophy" class="btn btn--secondary">Изучить принципы <span class="arrow">→</span></a>
+      </div>
+    </div>
+    <div class="hero__cue" aria-hidden="true"></div>
+  </section>
+
+  <section class="philosophy" id="philosophy" aria-labelledby="philosophyTitle">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="meta"><span class="meta__index">I</span>Пять опор</p>
+        <h2 class="section-title" id="philosophyTitle">Философское ядро</h2>
+        <p class="lead">
+          Не разрозненные советы. Архитектура, в которой каждое решение становится осмысленным,
+          а каждое действие — частью пути.
+        </p>
+      </div>
+      <div class="pillars">
+        <article class="pillar" data-reveal>
+          <span class="pillar__num">01</span>
+          <h3>Миссия</h3>
+          <p>Если нет миссии, цели разрозненны. Миссия превращает действия в путь, а решения — в выбор.</p>
+        </article>
+        <article class="pillar" data-reveal style="--reveal-delay: 80ms">
+          <span class="pillar__num">02</span>
+          <h3>Счастье</h3>
+          <p>Здоровье, безопасность, свобода, любимые люди, любимое дело. Пять опор. Ни одна не заменима другой.</p>
+        </article>
+        <article class="pillar" data-reveal style="--reveal-delay: 160ms">
+          <span class="pillar__num">03</span>
+          <h3>Энергия</h3>
+          <p>Главный ресурс. Деньги, связи, власть, репутация — её формы. Без энергии стратегия мертва.</p>
+        </article>
+        <article class="pillar" data-reveal style="--reveal-delay: 240ms">
+          <span class="pillar__num">04</span>
+          <h3>Эффективность</h3>
+          <p>Результат, делённый на затраты. Не скорость и не объём — отношение. Дисциплина важнее подвига.</p>
+        </article>
+        <article class="pillar" data-reveal style="--reveal-delay: 320ms">
+          <span class="pillar__num">05</span>
+          <h3>Осознанность</h3>
+          <p>Пространство между стимулом и реакцией. Свобода выбора живёт здесь — не до и не после.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <span class="section-mark" aria-hidden="true"></span>
+
+  <section class="knowledge section--alt" id="knowledge" aria-labelledby="knowledgeTitle">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="meta"><span class="meta__index">II</span>Карта знаний</p>
+        <h2 class="section-title" id="knowledgeTitle">Система, не библиотека</h2>
+        <p class="lead">
+          Двадцать три темы в шести кластерах. Каждая тема — узел смысла:
+          миссия ведёт к энергии, энергия — к делу, дело — к капиталу.
+        </p>
+      </div>
+      <div class="clusters">
+
+        <article class="cluster" data-reveal>
+          <header class="cluster__head">
+            <p class="meta">Внутренний мир</p>
+            <span class="cluster__count">6 тем</span>
+          </header>
+          <ul role="list">
+            <li class="theme"><span class="theme__name">Миссия и предназначение</span><span class="theme__desc">направление, без которого цели разрозненны</span></li>
+            <li class="theme"><span class="theme__name">Счастье и гармония</span><span class="theme__desc">пять опор счастья как состояние, не цель</span></li>
+            <li class="theme"><span class="theme__name">Страхи и стресс</span><span class="theme__desc">что мешает движению и что с этим делать</span></li>
+            <li class="theme"><span class="theme__name">Одиночество и рефлексия</span><span class="theme__desc">пространство для мысли</span></li>
+            <li class="theme"><span class="theme__name">Осознанность</span><span class="theme__desc">между стимулом и реакцией</span></li>
+            <li class="theme"><span class="theme__name">Внутренняя свобода</span><span class="theme__desc">состояние, к которому ведёт путь</span></li>
+          </ul>
+        </article>
+
+        <article class="cluster" data-reveal style="--reveal-delay: 80ms">
+          <header class="cluster__head">
+            <p class="meta">Энергия и метод</p>
+            <span class="cluster__count">6 тем</span>
+          </header>
+          <ul role="list">
+            <li class="theme"><span class="theme__name">Энергия как ресурс</span><span class="theme__desc">источники и утечки</span></li>
+            <li class="theme"><span class="theme__name">Кайдзен-планирование</span><span class="theme__desc">поток маленьких действий, не список задач</span></li>
+            <li class="theme"><span class="theme__name">Привычки</span><span class="theme__desc">фундамент дисциплины</span></li>
+            <li class="theme"><span class="theme__name">Цели и достижения</span><span class="theme__desc">производное от миссии</span></li>
+            <li class="theme"><span class="theme__name">Ошибки и адаптивность</span><span class="theme__desc">материал эволюции</span></li>
+            <li class="theme"><span class="theme__name">Обучение и среда</span><span class="theme__desc">то, что формирует</span></li>
+          </ul>
+        </article>
+
+        <article class="cluster" data-reveal style="--reveal-delay: 160ms">
+          <header class="cluster__head">
+            <p class="meta">Дело</p>
+            <span class="cluster__count">6 тем</span>
+          </header>
+          <ul role="list">
+            <li class="theme"><span class="theme__name">Бизнес</span><span class="theme__desc">система, не геройство</span></li>
+            <li class="theme"><span class="theme__name">Лидерство</span><span class="theme__desc">от власти к вдохновению и экосистеме</span></li>
+            <li class="theme"><span class="theme__name">Успех</span><span class="theme__desc">это счастье, а не статус</span></li>
+            <li class="theme"><span class="theme__name">Возможности</span><span class="theme__desc">то, что видят подготовленные</span></li>
+            <li class="theme"><span class="theme__name">Переговоры</span><span class="theme__desc">обмен энергией, не торг</span></li>
+            <li class="theme"><span class="theme__name">Нетворкинг</span><span class="theme__desc">связи как капитал</span></li>
+          </ul>
+        </article>
+
+        <article class="cluster" data-reveal style="--reveal-delay: 240ms">
+          <header class="cluster__head">
+            <p class="meta">Капитал</p>
+            <span class="cluster__count">3 темы</span>
+          </header>
+          <ul role="list">
+            <li class="theme"><span class="theme__name">Деньги</span><span class="theme__desc">форма энергии, побочный продукт</span></li>
+            <li class="theme"><span class="theme__name">Инвестиции</span><span class="theme__desc">терпение в действии</span></li>
+            <li class="theme"><span class="theme__name">Экономика и технологии</span><span class="theme__desc">контекст эпохи</span></li>
+          </ul>
+        </article>
+
+        <article class="cluster" data-reveal style="--reveal-delay: 320ms">
+          <header class="cluster__head">
+            <p class="meta">Жизнь</p>
+            <span class="cluster__count">2 темы</span>
+          </header>
+          <ul role="list">
+            <li class="theme"><span class="theme__name">Дети</span><span class="theme__desc">продолжение миссии</span></li>
+            <li class="theme"><span class="theme__name">Биография и путешествия</span><span class="theme__desc">опыт как материал мышления</span></li>
+          </ul>
+        </article>
+
+        <article class="cluster" data-reveal style="--reveal-delay: 400ms">
+          <header class="cluster__head">
+            <p class="meta">Опоры мысли</p>
+            <span class="cluster__count">1 тема</span>
+          </header>
+          <ul role="list">
+            <li class="theme"><span class="theme__name">Религия, наука и философия</span><span class="theme__desc">три способа смотреть на мир</span></li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="how" id="how" aria-labelledby="howTitle">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="meta"><span class="meta__index">III</span>Как работает</p>
+        <h2 class="section-title" id="howTitle">Шесть шагов разговора</h2>
+        <p class="lead">Не магия и не оракул. Структура, в которой ваша ситуация становится понятной.</p>
+      </div>
+      <ol class="steps" role="list">
+        <li class="step" data-reveal>
+          <span class="step__num">01</span>
+          <div><h3>Опишите ситуацию</h3><p>Своими словами, без структуры. Не нужно формулировать «правильно».</p></div>
+        </li>
+        <li class="step" data-reveal style="--reveal-delay: 80ms">
+          <span class="step__num">02</span>
+          <div><h3>Выберите угол</h3><p>Миссия, энергия, дело или решение. Один угол — ясный ответ.</p></div>
+        </li>
+        <li class="step" data-reveal style="--reveal-delay: 160ms">
+          <span class="step__num">03</span>
+          <div><h3>Получите ответ</h3><p>В логике принципов Маргулана. С атрибуцией к источнику.</p></div>
+        </li>
+        <li class="step" data-reveal style="--reveal-delay: 240ms">
+          <span class="step__num">04</span>
+          <div><h3>Увидьте действия</h3><p>Конкретные, не абстрактные. То, что можно сделать сегодня.</p></div>
+        </li>
+        <li class="step" data-reveal style="--reveal-delay: 320ms">
+          <span class="step__num">05</span>
+          <div><h3>Проведите рефлексию</h3><p>Короткую, честную. Без неё действие не становится опытом.</p></div>
+        </li>
+        <li class="step" data-reveal style="--reveal-delay: 400ms">
+          <span class="step__num">06</span>
+          <div><h3>Сложите план</h3><p>Один шаг, не сто. План растёт из действия — не наоборот.</p></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <span class="section-mark" aria-hidden="true"></span>
+
+  <section class="cases section--alt" id="cases" aria-labelledby="casesTitle">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="meta"><span class="meta__index">IV</span>С чем приходят</p>
+        <h2 class="section-title" id="casesTitle">Реальные ситуации</h2>
+        <p class="lead">Не «как стать успешным» — а то, что человек правда говорит себе вечером.</p>
+      </div>
+      <ul class="cases-list" role="list">
+        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я выгорел.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я потерял мотивацию.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я не понимаю свою миссию.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«У меня конфликт.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я боюсь риска.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я хочу открыть бизнес.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я хочу управлять энергией.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я хочу стать сильнее как лидер.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я не понимаю, что делать дальше.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="principles" id="principles" aria-labelledby="principlesTitle">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="meta"><span class="meta__index">V</span>Принципы</p>
+        <h2 class="section-title" id="principlesTitle">Восемь аксиом системы</h2>
+        <p class="lead">Опоры, на которых держится всё остальное.</p>
+      </div>
+      <div class="principles-grid">
+        <article class="principle" data-reveal>
+          <span class="principle__num">01</span>
+          <h3>Миссия важнее разрозненных целей.</h3>
+          <p>Без направления каждая задача — про другое. Цели имеют смысл только внутри пути.</p>
+        </article>
+        <article class="principle" data-reveal style="--reveal-delay: 80ms">
+          <span class="principle__num">02</span>
+          <h3>Счастье — это здоровье, безопасность, свобода, любимые люди и любимое дело.</h3>
+          <p>Пять опор. Ни одна из них не заменима другой. Деньги без них — провал, замаскированный под победу.</p>
+        </article>
+        <article class="principle" data-reveal>
+          <span class="principle__num">03</span>
+          <h3>Энергия — главный ресурс.</h3>
+          <p>Деньги, связи, власть, репутация — её формы. Без энергии любая стратегия мертва.</p>
+        </article>
+        <article class="principle" data-reveal style="--reveal-delay: 80ms">
+          <span class="principle__num">04</span>
+          <h3>Эффективность — результат, делённый на затраты.</h3>
+          <p>Не скорость, не объём — отношение. Это инженерное определение, не эмоциональное.</p>
+        </article>
+        <article class="principle" data-reveal>
+          <span class="principle__num">05</span>
+          <h3>Кайдзен — поток маленьких действий, не список задач.</h3>
+          <p>Маленькое улучшение каждый день. Дисциплина дешевле подвига и сильнее его.</p>
+        </article>
+        <article class="principle" data-reveal style="--reveal-delay: 80ms">
+          <span class="principle__num">06</span>
+          <h3>Осознанность — пространство между стимулом и реакцией.</h3>
+          <p>В этом пространстве — свобода выбора. Чем оно шире, тем больше у вас власти над жизнью.</p>
+        </article>
+        <article class="principle" data-reveal>
+          <span class="principle__num">07</span>
+          <h3>Ошибки — материал эволюции.</h3>
+          <p>Без них не растут. Вопрос не в том, как избежать ошибок, а как извлекать из них следующий шаг.</p>
+        </article>
+        <article class="principle" data-reveal style="--reveal-delay: 80ms">
+          <span class="principle__num">08</span>
+          <h3>Успех — это счастье, а не деньги или статус.</h3>
+          <p>Деньги — побочный продукт эффективной деятельности. Счастье — её цель.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <span class="section-mark" aria-hidden="true"></span>
+
+  <section class="mentor" id="mentor" aria-labelledby="mentorTitle">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="meta"><span class="meta__index">VI</span>Personal Mentor AI</p>
+        <h2 class="section-title" id="mentorTitle">Пример диалога</h2>
+        <p class="lead">
+          Опишите ситуацию своими словами. Получите ответ в логике принципов
+          Маргулана — сначала миссия, потом энергия, потом действие.
+        </p>
+      </div>
+
+      <div class="dialogue" data-reveal>
+        <div class="dialogue__exchange">
+          <div class="dialogue__q">
+            <span class="dialogue__label">В.</span>
+            <p>Я устал, потерял мотивацию и не понимаю, куда двигаться.</p>
+          </div>
+          <div class="dialogue__a" id="dialogueAnswer">
+            <span class="dialogue__label">О.</span>
+            <div>
+              <p class="dialogue__answer is-typing" id="aiAnswer" data-text="Усталость и потеря мотивации — это сигнал, что энергия уходит туда, где нет смысла. Сначала остановитесь и посмотрите на свою миссию: ради чего вы это делаете? Если ответа нет — это первый шаг. Затем восстановите энергию: сон, движение, тишина. Без энергии любая стратегия мертва. Когда энергия вернётся, сделайте один маленький шаг — не план на год, а действие сегодня. Из действия родится план, не наоборот."></p>
+              <p class="dialogue__attribution" id="aiAttribution">
+                Логика системы · <b>миссия → энергия → действие</b>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="ai-demo" data-reveal aria-label="Демонстрация Personal Mentor AI" onsubmit="event.preventDefault();">
+        <div class="ai-demo__head">
+          <span class="ai-demo__badge">Demo</span>
+          <span class="ai-demo__hint">Полная версия в разработке</span>
+        </div>
+        <label class="sr-only" for="aiDemoInput">Опишите свою ситуацию</label>
+        <textarea
+          id="aiDemoInput"
+          class="ai-demo__input"
+          rows="3"
+          disabled
+          aria-disabled="true"
+          placeholder="Опишите свою ситуацию своими словами…"></textarea>
+        <div class="ai-demo__row">
+          <button type="submit" class="btn btn--primary" disabled aria-disabled="true">Задать наставнику <span aria-hidden="true">→</span></button>
+          <p class="ai-demo__note">Полный диалог появится в Personal Mentor AI приложении. Сейчас — только пример выше.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="path" id="path" aria-labelledby="pathTitle">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="meta"><span class="meta__index">VII</span>Путь</p>
+        <h2 class="section-title" id="pathTitle">От хаоса к свободе</h2>
+        <p class="lead">Не за день. Но в правильном порядке.</p>
+      </div>
+      <ol class="timeline" role="list">
+        <li class="node" data-node><span class="node__label">Хаос</span><span class="node__hint">всё разрозненно</span></li>
+        <li class="node" data-node><span class="node__label">Осознание</span><span class="node__hint">остановка и взгляд</span></li>
+        <li class="node" data-node><span class="node__label">Энергия</span><span class="node__hint">возвращение ресурса</span></li>
+        <li class="node" data-node><span class="node__label">Миссия</span><span class="node__hint">направление</span></li>
+        <li class="node" data-node><span class="node__label">Действие</span><span class="node__hint">маленький шаг</span></li>
+        <li class="node" data-node><span class="node__label">Эффективность</span><span class="node__hint">результат / затраты</span></li>
+        <li class="node" data-node><span class="node__label">Свобода</span><span class="node__hint">внутреннее состояние</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <span class="section-mark" aria-hidden="true"></span>
+
+  <section class="cta-final section--alt" aria-labelledby="ctaTitle">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="meta"><span class="meta__index">VIII</span>Куда идти на этой странице</p>
+        <h2 class="section-title" id="ctaTitle">Четыре входа</h2>
+        <p class="lead">Зависит от того, что у вас сейчас под рукой — время на чтение или один сложный вопрос.</p>
+      </div>
+      <ul class="cta-list" role="list">
+        <li>
+          <a class="cta-item" href="#knowledge" data-reveal>
+            <span><span class="cta-item__title">Explore the System</span><span class="cta-item__desc">Пройти по карте знаний — 23 темы, 6 кластеров</span></span>
+            <span class="cta-item__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a class="cta-item" href="#path" data-reveal style="--reveal-delay: 60ms">
+            <span><span class="cta-item__title">Start Reflection</span><span class="cta-item__desc">Пройти путь — от хаоса к внутренней свободе</span></span>
+            <span class="cta-item__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a class="cta-item" href="#philosophy" data-reveal style="--reveal-delay: 120ms">
+            <span><span class="cta-item__title">Build Your Mission Map</span><span class="cta-item__desc">Прочитать пять опор философского ядра</span></span>
+            <span class="cta-item__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a class="cta-item" href="#mentor" data-reveal style="--reveal-delay: 180ms">
+            <span><span class="cta-item__title">Ask Personal Mentor AI</span><span class="cta-item__desc">Перейти к примеру диалога с системой</span></span>
+            <span class="cta-item__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <p class="disclaimer-strip">
+    Это симуляция, основанная на публичных материалах. Не реальный человек.
+    Каждый ответ — интерпретация системы принципов, не персональная консультация.
+  </p>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <h4>Margulan · Mentor AI</h4>
+        <p class="footer__intro">
+          Цифровая система мышления на философии Маргулана Сейсембая.
+          Premium knowledge platform для тех, кто принимает решения.
+        </p>
+      </div>
+      <div class="footer__col">
+        <h4>Разделы</h4>
+        <ul role="list">
+          <li><a href="#philosophy">Философское ядро</a></li>
+          <li><a href="#knowledge">Карта знаний</a></li>
+          <li><a href="#how">Как работает</a></li>
+          <li><a href="#principles">Принципы</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Понять</h4>
+        <ul role="list">
+          <li><a href="#mentor">Спросить</a></li>
+          <li><a href="#cases">Ситуации</a></li>
+          <li><a href="#path">Путь</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>О проекте</h4>
+        <ul role="list">
+          <li><a href="#mentor">Источники</a></li>
+          <li><a href="#mentor">Дисклеймер</a></li>
+          <li><a href="#mentor">Связаться</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Margulan Personal Mentor AI</span>
+      <span>Симуляция. Не реальный человек.</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="sticky-bar" id="stickyBar" aria-label="Быстрый доступ к Personal Mentor AI">
+  <span class="sticky-bar__note">Demo</span>
+  <a href="#mentor" class="sticky-bar__cta">Спросить <span aria-hidden="true">→</span></a>
+</nav>
+
+<script>
+(function () {
+  'use strict';
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const nav = document.getElementById('nav');
+  const stickyBar = document.getElementById('stickyBar');
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobileMenu');
+  const main = document.getElementById('main');
+  const header = document.querySelector('header.nav');
+  const progress = document.getElementById('scrollProgress');
+
+  let lastY = window.scrollY;
+  let ticking = false;
+  let isDesktop = window.innerWidth >= 900;
+  let docHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+
+  /* ===== scroll: nav border + sticky-bar + progress ===== */
+  function onScroll() {
+    const y = window.scrollY;
+    nav.classList.toggle('is-scrolled', y > 8);
+
+    if (stickyBar && !isDesktop) {
+      const scrollingDown = y > lastY && y > 240;
+      stickyBar.classList.toggle('is-hidden', scrollingDown);
+    }
+
+    if (progress && !reduceMotion) {
+      const ratio = Math.min(1, Math.max(0, y / docHeight));
+      progress.style.transform = 'scaleX(' + ratio + ')';
+    }
+
+    lastY = y;
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+  }, { passive: true });
+
+  /* ===== resize ===== */
+  function onResize() {
+    isDesktop = window.innerWidth >= 900;
+    docHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    if (stickyBar && isDesktop) stickyBar.classList.remove('is-hidden');
+  }
+  window.addEventListener('resize', onResize, { passive: true });
+  window.addEventListener('load', onResize);
+
+  /* ===== mobile menu ===== */
+  const focusableSel = 'a, button, [tabindex]:not([tabindex="-1"])';
+  let lastFocused = null;
+
+  function setSiblingsInert(on) {
+    [main, header].forEach(el => {
+      if (!el) return;
+      if (on) el.setAttribute('inert', '');
+      else el.removeAttribute('inert');
+    });
+  }
+
+  function openMenu() {
+    lastFocused = document.activeElement;
+    menu.classList.add('is-open');
+    menu.setAttribute('aria-hidden', 'false');
+    burger.setAttribute('aria-expanded', 'true');
+    burger.setAttribute('aria-label', 'Закрыть меню');
+    document.body.classList.add('menu-open');
+    setSiblingsInert(true);
+    const first = menu.querySelector(focusableSel);
+    if (first) first.focus();
+  }
+  function closeMenu() {
+    menu.classList.remove('is-open');
+    menu.setAttribute('aria-hidden', 'true');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-label', 'Открыть меню');
+    document.body.classList.remove('menu-open');
+    setSiblingsInert(false);
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+
+  burger.addEventListener('click', () => {
+    burger.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu();
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => {
+    if (!menu.classList.contains('is-open')) return;
+    if (e.key === 'Escape') { closeMenu(); return; }
+    if (e.key === 'Tab') {
+      const items = Array.from(menu.querySelectorAll(focusableSel));
+      if (!items.length) return;
+      const first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  /* ===== reveal animations + cleanup ===== */
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          el.classList.add('is-visible');
+          el.addEventListener('transitionend', () => {
+            el.classList.add('is-revealed');
+          }, { once: true });
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      el.classList.add('is-visible', 'is-revealed');
+    });
+  }
+
+  /* ===== transformation path nodes ===== */
+  const nodes = document.querySelectorAll('[data-node]');
+  if ('IntersectionObserver' in window && nodes.length) {
+    const nodeIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (reduceMotion) {
+            entry.target.classList.add('is-visible');
+          } else {
+            const idx = Array.from(nodes).indexOf(entry.target);
+            setTimeout(() => entry.target.classList.add('is-visible'), idx * 150);
+          }
+          nodeIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    nodes.forEach(n => nodeIo.observe(n));
+  }
+
+  /* ===== AI typewriter ===== */
+  const aiAnswer = document.getElementById('aiAnswer');
+  const aiAttribution = document.getElementById('aiAttribution');
+
+  if (aiAnswer) {
+    const fullText = aiAnswer.dataset.text || '';
+    if (reduceMotion) {
+      aiAnswer.textContent = fullText;
+      aiAnswer.classList.remove('is-typing');
+      aiAttribution.classList.add('is-shown');
+    } else {
+      let started = false;
+      const startTypewriter = () => {
+        if (started) return;
+        started = true;
+        const speed = 22;
+        let i = 0;
+        aiAnswer.textContent = '';
+        const tick = () => {
+          if (i <= fullText.length) {
+            aiAnswer.textContent = fullText.slice(0, i);
+            i++;
+            setTimeout(tick, speed);
+          } else {
+            aiAnswer.classList.remove('is-typing');
+            setTimeout(() => aiAttribution.classList.add('is-shown'), 200);
+          }
+        };
+        tick();
+      };
+      const dialogueIo = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) { startTypewriter(); dialogueIo.unobserve(entry.target); }
+        });
+      }, { threshold: 0.3 });
+      dialogueIo.observe(aiAnswer);
+    }
+  }
+
+})();
+</script>
+
+</body>
+</html>
