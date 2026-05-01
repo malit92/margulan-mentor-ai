@@ -708,11 +708,23 @@ section { padding-block: var(--section-py); position: relative; }
 }
 .cluster ul { display: grid; gap: 0; }
 .theme {
-  padding: var(--space-3) 0;
   border-bottom: 1px solid var(--color-stroke-2);
-  transition: padding-left var(--dur-base) var(--ease-out);
 }
 .theme:last-child { border-bottom: none; }
+.theme__expand { display: block; }
+.theme__head {
+  list-style: none;
+  cursor: pointer;
+  padding: var(--space-3) 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  transition: padding-left var(--dur-base) var(--ease-out);
+}
+.theme__head::-webkit-details-marker { display: none; }
+.theme__head::marker { display: none; content: ''; }
+.theme__title { flex: 1; min-width: 0; }
 .theme__name {
   display: block;
   font-family: var(--font-display);
@@ -730,6 +742,79 @@ section { padding-block: var(--section-py); position: relative; }
   font-size: 0.875rem;
   color: var(--text-muted);
   line-height: 1.5;
+}
+.theme__chevron {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-soft);
+  flex-shrink: 0;
+  line-height: 1;
+  padding-top: 4px;
+  transition: transform var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+.theme__expand[open] .theme__chevron { transform: rotate(45deg); color: var(--accent); }
+@media (hover: hover) {
+  .theme__head:hover { padding-left: 8px; }
+  .theme__head:hover .theme__chevron { color: var(--accent); }
+}
+.theme__body {
+  padding: 0 0 var(--space-4) 0;
+  display: grid;
+  gap: var(--space-3);
+  max-width: 50ch;
+  animation: themeSlide var(--dur-slow) var(--ease-content);
+}
+.theme__body > p {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.theme__quote {
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--color-brass-mute);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text);
+  font-variation-settings: 'wght' 380, 'opsz' 96;
+}
+.theme__quote cite {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
+  color: var(--text-soft);
+  font-style: normal;
+}
+.theme__cta {
+  margin-top: var(--space-2);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: start;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--color-stroke);
+  transition: border-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+.theme__cta:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+@keyframes themeSlide {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme__body { animation: none; }
 }
 
 @media (min-width: 720px) {
@@ -1442,12 +1527,12 @@ section { padding-block: var(--section-py); position: relative; }
           </header>
           <p class="cluster__lead">Шесть тем о фундаменте: миссия, счастье, страх, тишина, осознанность, свобода. Без этого внешнее не строится.</p>
           <ul role="list">
-            <li class="theme"><span class="theme__name">Миссия и предназначение</span><span class="theme__desc">направление, без которого цели разрозненны</span></li>
-            <li class="theme"><span class="theme__name">Счастье и гармония</span><span class="theme__desc">пять опор счастья как состояние, не цель</span></li>
-            <li class="theme"><span class="theme__name">Страхи и стресс</span><span class="theme__desc">что мешает движению и что с этим делать</span></li>
-            <li class="theme"><span class="theme__name">Одиночество и рефлексия</span><span class="theme__desc">пространство для мысли</span></li>
-            <li class="theme"><span class="theme__name">Осознанность</span><span class="theme__desc">между стимулом и реакцией</span></li>
-            <li class="theme"><span class="theme__name">Внутренняя свобода</span><span class="theme__desc">состояние, к которому ведёт путь</span></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Миссия и предназначение</span><span class="theme__desc">направление, без которого цели разрозненны</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Миссия — ответ на вопрос: для чего ты пришёл в этот мир, что тебя драйвит, что будит по утрам. Найдёшь её — отсечёшь всё лишнее. Без миссии все цели — про другое.</p><blockquote class="theme__quote">«Если вы не определили цель вашей жизни, то все ваши цели разрознены, и вы занимаетесь чем попало.»<cite>Маргулан Сейсембай · Определите свою миссию</cite></blockquote><a class="theme__cta" href="#mentor">Спросить про свою миссию <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Счастье и гармония</span><span class="theme__desc">пять опор счастья как состояние, не цель</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Здоровье, безопасность, свобода, любимые люди, любимое дело. Их наличие не гарантирует счастье. Но отсутствие любой — гарантирует несчастье. Счастье — процесс, не результат.</p><blockquote class="theme__quote">«Счастье — это как воздух: его нельзя почувствовать, но как только его нет, вы сразу чувствуете себя несчастным.»<cite>Маргулан Сейсембай · 5 элементов счастья</cite></blockquote><a class="theme__cta" href="#mentor">Спросить про счастье <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Страхи и стресс</span><span class="theme__desc">что мешает движению и что с этим делать</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Бороться со страхом лоб в лоб бесполезно. Можно увеличивать пространство между стимулом и реакцией. В этом пространстве — выбор и свобода. Чем оно шире, тем больше у вас власти над собой.</p><a class="theme__cta" href="#mentor">Спросить про страх <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Одиночество и рефлексия</span><span class="theme__desc">пространство для мысли</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Тишина — пространство для мысли. Без рефлексии действие не становится опытом. Кайдзен-час: один час каждое утро на анализ прошлого дня. Накопительный эффект.</p><blockquote class="theme__quote">«Кайдзен-час — это время, которое я провожу каждое утро, и в течение которого я анализирую прошлый день.»<cite>Маргулан Сейсембай · Эта привычка изменит вашу жизнь</cite></blockquote><a class="theme__cta" href="#mentor">Спросить про рефлексию <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Осознанность</span><span class="theme__desc">между стимулом и реакцией</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Пространство между стимулом и реакцией. В этом пространстве — свобода выбора. Радость и счастье — это выбор, не случайность. Каждое утро ты решаешь, какой день прожить.</p><blockquote class="theme__quote">«Радость и счастье — это выбор. Это не то, что с вами случается автоматически.»<cite>Маргулан Сейсембай · Об обидах и разочарованиях</cite></blockquote><a class="theme__cta" href="#mentor">Спросить про осознанность <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Внутренняя свобода</span><span class="theme__desc">состояние, к которому ведёт путь</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Финальное состояние пути. Не отсутствие проблем — а ментальная свобода: способность не строить себе тюрьму в голове из чужих ожиданий.</p><a class="theme__cta" href="#mentor">Спросить про свободу <span aria-hidden="true">→</span></a></div></details></li>
           </ul>
         </article>
 
@@ -1458,12 +1543,12 @@ section { padding-block: var(--section-py); position: relative; }
           </header>
           <p class="cluster__lead">Шесть тем об управлении главным ресурсом и о методе, который делает его расходование осмысленным.</p>
           <ul role="list">
-            <li class="theme"><span class="theme__name">Энергия как ресурс</span><span class="theme__desc">источники и утечки</span></li>
-            <li class="theme"><span class="theme__name">Кайдзен-планирование</span><span class="theme__desc">поток маленьких действий, не список задач</span></li>
-            <li class="theme"><span class="theme__name">Привычки</span><span class="theme__desc">фундамент дисциплины</span></li>
-            <li class="theme"><span class="theme__name">Цели и достижения</span><span class="theme__desc">производное от миссии</span></li>
-            <li class="theme"><span class="theme__name">Ошибки и адаптивность</span><span class="theme__desc">материал эволюции</span></li>
-            <li class="theme"><span class="theme__name">Обучение и среда</span><span class="theme__desc">то, что формирует</span></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Энергия как ресурс</span><span class="theme__desc">источники и утечки</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Главный ресурс мира. Деньги, власть, слава, репутация, связи — её формы. Энергодефицитный человек берёт. Энергопрофицитный — отдаёт. Все хорошие качества — воля, благородство, терпение — подпитываются энергией.</p><blockquote class="theme__quote">«В этом мире самый главный ресурс — это энергия. Я не делю людей на хороших и плохих, я делю их на энергодефицитных и энергопрофицитных.»<cite>Маргулан Сейсембай · О влиянии энергии на людей</cite></blockquote><a class="theme__cta" href="#mentor">Спросить про энергию <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Кайдзен-планирование</span><span class="theme__desc">поток маленьких действий, не список задач</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Не список задач, а поток. Бочка работы, разлитая по стаканам — каждый час один стакан. В единицу времени — одно дело. Дисциплина дешевле подвига и сильнее его.</p><blockquote class="theme__quote">«Кайдзен-планирование разливает эту бочку по стаканам. Сегодня твоя задача выпить 10 стаканов.»<cite>Маргулан Сейсембай · 4 инструмента продуктивного дня</cite></blockquote><a class="theme__cta" href="#mentor">Спросить про метод <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Привычки</span><span class="theme__desc">фундамент дисциплины</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Главная функция привычек — освобождать энергию для важного, делая рутину автоматической. Накопительный эффект — главный двигатель долгосрочного роста.</p><a class="theme__cta" href="#mentor">Спросить про привычки <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Цели и достижения</span><span class="theme__desc">производное от миссии</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Жизнь — три уровня целей: задачи, жизненные цели, миссия. Можно быть эффективным в задачах и жизненных целях, но если нет миссии — вся жизнь будет неэффективной.</p><blockquote class="theme__quote">«Если у тебя нет миссии в твоей жизни, то твоя жизнь будет неэффективна. Из-за этого люди к сорока годам упираются в потолок.»<cite>Маргулан Сейсембай · Про цель вашей жизни</cite></blockquote><a class="theme__cta" href="#mentor">Спросить про цели <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Ошибки и адаптивность</span><span class="theme__desc">материал эволюции</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Материал эволюции. Учёные знают: успех приходит после 10 попыток. Они отменяют ошибку и продолжают. По закону Парето, последние 20% усилий приносят 80% результата.</p><blockquote class="theme__quote">«Учёные знают, что успех приходит в среднем после 10 попыток. Они отменяют ошибку и продолжают.»<cite>Маргулан Сейсембай · Совет молодым</cite></blockquote><a class="theme__cta" href="#mentor">Спросить про ошибки <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Обучение и среда</span><span class="theme__desc">то, что формирует</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Среда формирует мышление. Меняй среду — меняешь себя. Без непрерывного обучения мир обгоняет — то, что было актуально вчера, сегодня уже неэффективно.</p><a class="theme__cta" href="#mentor">Спросить про обучение <span aria-hidden="true">→</span></a></div></details></li>
           </ul>
         </article>
 
@@ -1474,12 +1559,12 @@ section { padding-block: var(--section-py); position: relative; }
           </header>
           <p class="cluster__lead">Шесть тем о бизнесе как системе, лидерстве как переходе от власти к вдохновению, и о возможностях, которые видят подготовленные.</p>
           <ul role="list">
-            <li class="theme"><span class="theme__name">Бизнес</span><span class="theme__desc">система, не геройство</span></li>
-            <li class="theme"><span class="theme__name">Лидерство</span><span class="theme__desc">от власти к вдохновению и экосистеме</span></li>
-            <li class="theme"><span class="theme__name">Успех</span><span class="theme__desc">это счастье, а не статус</span></li>
-            <li class="theme"><span class="theme__name">Возможности</span><span class="theme__desc">то, что видят подготовленные</span></li>
-            <li class="theme"><span class="theme__name">Переговоры</span><span class="theme__desc">обмен энергией, не торг</span></li>
-            <li class="theme"><span class="theme__name">Нетворкинг</span><span class="theme__desc">связи как капитал</span></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Бизнес</span><span class="theme__desc">система, не геройство</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Бизнес — это система, а не подвиг основателя. Конкуренция — это соревнование, кто больше любит свой бизнес. Если не любишь — будешь проигрывать тому, кто задержится на час дольше за меньшие деньги.</p><blockquote class="theme__quote">«Конкуренция — это соревнование между бизнесменами по доказыванию обществу, кто больше любит свой бизнес.»<cite>Маргулан Сейсембай · Профессии будущего</cite></blockquote><a class="theme__cta" href="#mentor">Спросить про бизнес <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Лидерство</span><span class="theme__desc">от власти к вдохновению и экосистеме</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Лидер не управляет людьми — он создаёт условия, в которых они раскрываются. Переход от модели «власть» к модели «экосистема» — главный сдвиг современного лидерства.</p><a class="theme__cta" href="#mentor">Спросить про лидерство <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Успех</span><span class="theme__desc">это счастье, а не статус</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Это счастье, а не статус. Не видел счастливого человека, который считал себя неуспешным. Деньги без счастья — провал, замаскированный под победу.</p><blockquote class="theme__quote">«Я видел много успешных людей, которые не были счастливы. Но я не видел ни одного счастливого человека, который считал себя неуспешным.»<cite>Маргулан Сейсембай · Успех — это счастье</cite></blockquote><a class="theme__cta" href="#mentor">Спросить про успех <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Возможности</span><span class="theme__desc">то, что видят подготовленные</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Возможности всегда есть — но без подготовки ты их просто не замечаешь. Удача — функция готовности к ней. Поле зрения определяется накопленным опытом.</p><a class="theme__cta" href="#mentor">Спросить про возможности <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Переговоры</span><span class="theme__desc">обмен энергией, не торг</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Обмен энергией, не торг. Слово «нет» — не отказ, а информация. Ваше отношение к нему определяет, дойдёте ли вы до цели или остановитесь на восьмой попытке.</p><a class="theme__cta" href="#mentor">Спросить про переговоры <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Нетворкинг</span><span class="theme__desc">связи как капитал</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Связи как капитал. Это не охота за полезными контактами — это инвестиция в энергопрофицитных людей вокруг. Качество среды важнее количества знакомств.</p><a class="theme__cta" href="#mentor">Спросить про нетворкинг <span aria-hidden="true">→</span></a></div></details></li>
           </ul>
         </article>
 
@@ -1490,9 +1575,9 @@ section { padding-block: var(--section-py); position: relative; }
           </header>
           <p class="cluster__lead">Три темы о деньгах как форме энергии — и о терпении, без которого инвестиции превращаются в спекуляцию.</p>
           <ul role="list">
-            <li class="theme"><span class="theme__name">Деньги</span><span class="theme__desc">форма энергии, побочный продукт</span></li>
-            <li class="theme"><span class="theme__name">Инвестиции</span><span class="theme__desc">терпение в действии</span></li>
-            <li class="theme"><span class="theme__name">Экономика и технологии</span><span class="theme__desc">контекст эпохи</span></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Деньги</span><span class="theme__desc">форма энергии, побочный продукт</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Форма энергии. Побочный продукт эффективной деятельности. Не цель — следствие. Дельта между результатом и затратами. Чем эффективнее, тем больше дельта.</p><blockquote class="theme__quote">«Все деньги, машины, яхты, дома — это побочный продукт моей эффективной деятельности.»<cite>Маргулан Сейсембай · Об эффективности</cite></blockquote><a class="theme__cta" href="#mentor">Спросить про деньги <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Инвестиции</span><span class="theme__desc">терпение в действии</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Терпение в действии. Бизнесмен делает деньги — инвестор позволяет деньгам делать деньги. Кайдзен работает и в инвестициях: маленькие правильные решения каждый раз.</p><a class="theme__cta" href="#mentor">Спросить про инвестиции <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Экономика и технологии</span><span class="theme__desc">контекст эпохи</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Контекст эпохи. Понимание трендов — основа долгосрочных решений. Криптовалюты, ИИ, автоматизация — формы новой энергии и новых ресурсов.</p><a class="theme__cta" href="#mentor">Спросить про экономику <span aria-hidden="true">→</span></a></div></details></li>
           </ul>
         </article>
 
@@ -1503,8 +1588,8 @@ section { padding-block: var(--section-py); position: relative; }
           </header>
           <p class="cluster__lead">Две темы о том, что остаётся после бизнеса и решений. То, ради чего всё это.</p>
           <ul role="list">
-            <li class="theme"><span class="theme__name">Дети</span><span class="theme__desc">продолжение миссии</span></li>
-            <li class="theme"><span class="theme__name">Биография и путешествия</span><span class="theme__desc">опыт как материал мышления</span></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Дети</span><span class="theme__desc">продолжение миссии</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Продолжение миссии. Главное — не наследство, а способность найти любимое дело. Деньги без любви к делу разрушают раньше, чем строят.</p><a class="theme__cta" href="#mentor">Спросить про детей <span aria-hidden="true">→</span></a></div></details></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Биография и путешествия</span><span class="theme__desc">опыт как материал мышления</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Опыт как материал мышления. От пастуха в юности до инвестора с международным портфелем. Путешествия — не отдых, а сбор данных о мире.</p><blockquote class="theme__quote">«Я в этот мир не пришёл для того, чтобы пасти свою еду.»<cite>Маргулан Сейсембай · Совет молодым</cite></blockquote><a class="theme__cta" href="#mentor">Спросить про путь <span aria-hidden="true">→</span></a></div></details></li>
           </ul>
         </article>
 
@@ -1515,7 +1600,7 @@ section { padding-block: var(--section-py); position: relative; }
           </header>
           <p class="cluster__lead">Три способа смотреть на мир: религия, наука, философия. Три объектива одной системы.</p>
           <ul role="list">
-            <li class="theme"><span class="theme__name">Религия, наука и философия</span><span class="theme__desc">три способа смотреть на мир</span></li>
+            <li class="theme"><details class="theme__expand"><summary class="theme__head"><span class="theme__title"><span class="theme__name">Религия, наука и философия</span><span class="theme__desc">три способа смотреть на мир</span></span><span class="theme__chevron" aria-hidden="true">+</span></summary><div class="theme__body"><p>Три способа смотреть на мир. Три объектива одной системы. Не противоречат друг другу — дополняют. Каждый раскрывает свой слой реальности.</p><a class="theme__cta" href="#mentor">Спросить про опоры <span aria-hidden="true">→</span></a></div></details></li>
           </ul>
         </article>
 

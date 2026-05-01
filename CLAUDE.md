@@ -727,9 +727,9 @@ JS — единственный IIFE:
 
 **Stagger delay:** 80ms между соседними элементами (`--reveal-delay: 0, 80, 160, 240, 320, 400ms`).
 
-## 7.3 Editorial list pattern (Knowledge Map clusters)
+## 7.3 Editorial expandable list (Knowledge Map clusters)
 
-Без card-styling. Header с подчёркивающей линией, list с тонкими разделителями.
+Без card-styling. Header с подчёркивающей линией, list с тонкими разделителями. Каждая тема — раскрывающийся `<details>` с реальным контентом из транскриптов.
 
 ```html
 <article class="cluster" data-reveal>
@@ -737,17 +737,40 @@ JS — единственный IIFE:
     <p class="meta">[Название кластера]</p>
     <span class="cluster__count">[N тем]</span>
   </header>
+  <p class="cluster__lead">[1-2 строки о смысле кластера]</p>
   <ul role="list">
     <li class="theme">
-      <span class="theme__name">[Тема]</span>
-      <span class="theme__desc">[Описание]</span>
+      <details class="theme__expand">
+        <summary class="theme__head">
+          <span class="theme__title">
+            <span class="theme__name">[Тема]</span>
+            <span class="theme__desc">[Краткое описание]</span>
+          </span>
+          <span class="theme__chevron" aria-hidden="true">+</span>
+        </summary>
+        <div class="theme__body">
+          <p>[Параграф-разворот, парафраз из транскриптов или платформенный copy]</p>
+          <blockquote class="theme__quote">
+            «[Прямая цитата Маргулана]»
+            <cite>Маргулан Сейсембай · [Название выступления]</cite>
+          </blockquote>
+          <a class="theme__cta" href="#mentor">Спросить про эту тему →</a>
+        </div>
+      </details>
     </li>
     [...]
   </ul>
 </article>
 ```
 
-**Themes — non-interactive.** Никакого `<a>`, никакого `cursor: pointer`. Это намеренно.
+**Правила раскрытия:**
+- `<details>`/`<summary>` — нативный disclosure, без JS.
+- `+` шеврон поворачивается на 45° при `[open]`, превращаясь в `×`-знак.
+- Body имеет slide-fade-in animation (`themeSlide`), гарантировано отключается при reduced-motion.
+- При раскрытии — параграф (обязательно), цитата (опционально, только если есть в транскриптах), CTA `<a href="#mentor">` (обязательно).
+- Темы без прямой цитаты Маргулана получают только параграф + CTA. Цитату не выдумывать.
+
+**Каждая тема обязана быть кликабельной** и раскрывать реальный контент. Visual-cue (chevron) и semantic (`<details>`) синхронизированы — affordance соответствует поведению.
 
 ## 7.4 Interactive entry pattern (Use Cases, CTA Final)
 
