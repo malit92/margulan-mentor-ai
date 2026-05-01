@@ -1654,15 +1654,15 @@ section { padding-block: var(--section-py); position: relative; }
         <p class="lead">Не «как стать успешным» — а то, что человек правда говорит себе вечером.</p>
       </div>
       <ul class="cases-list" role="list">
-        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я выгорел.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
-        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я потерял мотивацию.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
-        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я не понимаю свою миссию.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
-        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«У меня конфликт.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
-        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я боюсь риска.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
-        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я хочу открыть бизнес.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
-        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я хочу управлять энергией.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
-        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я хочу стать сильнее как лидер.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
-        <li><a class="case-link" href="#mentor" data-reveal><span class="case__text">«Я не понимаю, что делать дальше.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-case="burnout"    data-reveal><span class="case__text">«Я выгорел.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-case="motivation" data-reveal><span class="case__text">«Я потерял мотивацию.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-case="mission"    data-reveal><span class="case__text">«Я не понимаю свою миссию.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-case="conflict"   data-reveal><span class="case__text">«У меня конфликт.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-case="fear"       data-reveal><span class="case__text">«Я боюсь риска.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-case="business"   data-reveal><span class="case__text">«Я хочу открыть бизнес.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-case="energy"     data-reveal><span class="case__text">«Я хочу управлять энергией.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-case="leadership" data-reveal><span class="case__text">«Я хочу стать сильнее как лидер.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
+        <li><a class="case-link" href="#mentor" data-case="direction"  data-reveal><span class="case__text">«Я не понимаю, что делать дальше.»</span><span class="case__arrow" aria-hidden="true">→</span></a></li>
       </ul>
     </div>
   </section>
@@ -2068,43 +2068,128 @@ section { padding-block: var(--section-py); position: relative; }
     nodes.forEach(n => nodeIo.observe(n));
   }
 
+  /* ===== AI dialogue: 9 case-specific exchanges ===== */
   const aiAnswer = document.getElementById('aiAnswer');
   const aiAttribution = document.getElementById('aiAttribution');
+  const dialogueQ = document.querySelector('.dialogue__q p');
 
-  if (aiAnswer) {
-    const fullText = aiAnswer.dataset.text || '';
+  const caseDialogues = {
+    burnout: {
+      q: '«Я выгорел.»',
+      a: 'Выгорание — это сигнал нулевого энергетического баланса. Не лечите следствие — лечите причину. Сначала остановитесь полностью на несколько дней: сон, тишина, движение без цели. Энергия не возвращается через ещё одно усилие. Потом честный вопрос к себе: ради чего я тратил энергию? Если ответ «потому что надо» — это утечка. Энергия течёт только туда, где есть смысл. Найдите смысл — энергия восстановится сама.',
+      attr: 'Логика системы · <b>остановка → восстановление → смысл</b>'
+    },
+    motivation: {
+      q: '«Я устал, потерял мотивацию и не понимаю, куда двигаться.»',
+      a: 'Усталость и потеря мотивации — это сигнал, что энергия уходит туда, где нет смысла. Сначала остановитесь и посмотрите на свою миссию: ради чего вы это делаете? Если ответа нет — это первый шаг. Затем восстановите энергию: сон, движение, тишина. Без энергии любая стратегия мертва. Когда энергия вернётся, сделайте один маленький шаг — не план на год, а действие сегодня. Из действия родится план, не наоборот.',
+      attr: 'Логика системы · <b>миссия → энергия → действие</b>'
+    },
+    mission: {
+      q: '«Я не понимаю свою миссию.»',
+      a: 'Миссию не «находят» — на неё указывают ваши таланты, темперамент и любовь к чему-то. Представьте: вас высадили в этом мире с сухим пайком, картой и компасом — у вас явно есть конкретное задание. Посмотрите на инструменты: что у вас получается легко, к чему тянет даже без награды, что вы делали бы бесплатно. Это не хобби — это указатели. Соберите 5–7 таких пунктов. Точка их пересечения — близка к миссии.',
+      attr: 'Логика системы · <b>таланты → пересечение → миссия</b>'
+    },
+    conflict: {
+      q: '«У меня конфликт.»',
+      a: 'Конфликт — это всегда столкновение ожиданий. Если обида — неоправданные ожидания, то конфликт — их публичная форма. Сначала перестаньте управлять другим человеком — это невозможно. Управляйте только своим отношением. Спросите себя: какое моё ожидание не оправдалось? Часто ответ «я ожидал, что он будет вести себя как я». Это уже половина решения. Вторая половина — выбор: продолжать ожидать и страдать, или принять, что человек устроен иначе.',
+      attr: 'Логика системы · <b>ожидания → отношение → принятие</b>'
+    },
+    fear: {
+      q: '«Я боюсь риска.»',
+      a: 'Страх риска — не слабость, это здравый смысл, доведённый до крайности. Вопрос не «как перестать бояться», а «какая цена страха». Посчитайте: что вы потеряете, если НЕ сделаете шаг? Часто оказывается, что бездействие дороже неудачи. Учёные знают: успех приходит после 10 попыток. Они не «перестают бояться» — они принимают, что 9 будут провальными, и продолжают. Сделайте маленький шаг — такой, чтобы провал был дешёвым. Из этого шага родится следующий.',
+      attr: 'Логика системы · <b>цена бездействия → 10 попыток → дешёвый шаг</b>'
+    },
+    business: {
+      q: '«Я хочу открыть бизнес.»',
+      a: 'Бизнес — это система, не геройство. Прежде чем начать, ответьте на один вопрос: вы любите этот бизнес? Не идею денег, не статус — сам процесс. Конкуренция — это соревнование, кто больше любит своё дело. Если ответ «не очень» — выбираете не то. Дальше: посмотрите на свою миссию. Если бизнес не входит в неё — он будет высасывать энергию. Если входит — стартуйте с минимально работающей версии. Маленький шаг сегодня. Не план на год.',
+      attr: 'Логика системы · <b>любовь к делу → миссия → MVP</b>'
+    },
+    energy: {
+      q: '«Я хочу управлять энергией.»',
+      a: 'Управление энергией начинается не с техник, а с разделения людей на две категории. Энергодефицитные — берут. Энергопрофицитные — отдают. Посмотрите на своё окружение и на собственное состояние после встреч: кто оставляет вас в плюсе, кто в минусе? Сначала уберите системные утечки: сон меньше 7 часов, токсичное общение, бессмысленные обязательства. Потом — кайдзен-час каждое утро на анализ: куда ушла энергия вчера. Через 30 дней увидите паттерн.',
+      attr: 'Логика системы · <b>классификация → утечки → кайдзен-час</b>'
+    },
+    leadership: {
+      q: '«Я хочу стать сильнее как лидер.»',
+      a: 'Лидерство — это переход от власти к вдохновению, а потом к экосистеме. На уровне власти ты управляешь людьми. На уровне вдохновения они следуют добровольно. На уровне экосистемы ты создаёшь условия, в которых они раскрываются без тебя. Сила лидера — не в способности заставлять, а в способности отдавать энергию. Если после встречи команда уходит уставшей — вы берёте. Если заряженной — вы отдаёте. Лидер всегда энергопрофицитный.',
+      attr: 'Логика системы · <b>власть → вдохновение → экосистема</b>'
+    },
+    direction: {
+      q: '«Я не понимаю, что делать дальше.»',
+      a: 'Когда не ясно, что делать, не делайте план — делайте шаг. Это противоречит логике, но работает. Большой план без действия — самообман. Маленькое действие даёт реальные данные о мире. Спросите себя: что я могу сделать сегодня вечером в течение 30 минут — такого, что приблизит меня хотя бы на градус к ясной мне ценности? Сделайте это. Завтра — следующий шаг. Из десяти таких шагов родится понятный путь. Из плана без действия — никогда.',
+      attr: 'Логика системы · <b>действие → данные → путь</b>'
+    }
+  };
+
+  let typewriterTimer = null;
+  let typewriterStarted = false;
+
+  function runTypewriter(text, attrHtml) {
+    if (typewriterTimer) { clearTimeout(typewriterTimer); typewriterTimer = null; }
+    if (!aiAnswer) return;
+    aiAttribution.classList.remove('is-shown');
+    if (attrHtml) aiAttribution.innerHTML = attrHtml;
+
     if (reduceMotion) {
-      aiAnswer.textContent = fullText;
+      aiAnswer.textContent = text;
       aiAnswer.classList.remove('is-typing');
       aiAttribution.classList.add('is-shown');
-    } else {
-      let started = false;
-      const startTypewriter = () => {
-        if (started) return;
-        started = true;
-        const speed = 22;
-        let i = 0;
-        aiAnswer.textContent = '';
-        const tick = () => {
-          if (i <= fullText.length) {
-            aiAnswer.textContent = fullText.slice(0, i);
-            i++;
-            setTimeout(tick, speed);
-          } else {
-            aiAnswer.classList.remove('is-typing');
-            setTimeout(() => aiAttribution.classList.add('is-shown'), 200);
-          }
-        };
-        tick();
-      };
+      return;
+    }
+    aiAnswer.classList.add('is-typing');
+    aiAnswer.textContent = '';
+    let i = 0;
+    const speed = 22;
+    const tick = () => {
+      if (i <= text.length) {
+        aiAnswer.textContent = text.slice(0, i);
+        i++;
+        typewriterTimer = setTimeout(tick, speed);
+      } else {
+        aiAnswer.classList.remove('is-typing');
+        typewriterTimer = setTimeout(() => aiAttribution.classList.add('is-shown'), 200);
+      }
+    };
+    tick();
+  }
+
+  function showCase(caseId) {
+    const data = caseDialogues[caseId];
+    if (!data || !aiAnswer) return;
+    if (dialogueQ) dialogueQ.textContent = data.q;
+    aiAnswer.dataset.text = data.a;
+    typewriterStarted = true;
+    runTypewriter(data.a, data.attr);
+  }
+
+  // First-view trigger via IO (default case = motivation)
+  if (aiAnswer) {
+    const defaultText = aiAnswer.dataset.text || caseDialogues.motivation.a;
+    const defaultAttr = aiAttribution ? aiAttribution.innerHTML : '';
+    if ('IntersectionObserver' in window) {
       const dialogueIo = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) { startTypewriter(); dialogueIo.unobserve(entry.target); }
+          if (entry.isIntersecting && !typewriterStarted) {
+            typewriterStarted = true;
+            runTypewriter(defaultText, defaultAttr);
+            dialogueIo.unobserve(entry.target);
+          }
         });
       }, { threshold: 0.3 });
       dialogueIo.observe(aiAnswer);
+    } else {
+      runTypewriter(defaultText, defaultAttr);
     }
   }
+
+  // Click on a case row → swap dialogue + replay
+  document.querySelectorAll('[data-case]').forEach(link => {
+    link.addEventListener('click', () => {
+      const id = link.dataset.case;
+      // Slight delay so the smooth-scroll lands first, then typing begins
+      setTimeout(() => showCase(id), reduceMotion ? 0 : 320);
+    });
+  });
 
 })();
 </script>

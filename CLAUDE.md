@@ -778,7 +778,7 @@ JS — единственный IIFE:
 
 ```html
 <li>
-  <a class="case-link" href="#mentor" data-reveal>
+  <a class="case-link" href="#mentor" data-case="burnout" data-reveal>
     <span class="case__text">[Текст]</span>
     <span class="case__arrow" aria-hidden="true">→</span>
   </a>
@@ -786,6 +786,25 @@ JS — единственный IIFE:
 ```
 
 **Hover:** padding-left +12px, brass-arrow появляется (opacity 0→1, translateX -6px → 0).
+
+**`data-case` атрибут (Use Cases только):** связывает ссылку с конкретным диалогом в `caseDialogues` (см. JS-блок «AI dialogue: 9 case-specific exchanges»). При клике:
+
+1. Браузер скроллит к `#mentor` (нативное anchor-поведение).
+2. JS перехватывает click, вызывает `showCase(caseId)` с задержкой 320ms (под reduce-motion — instant).
+3. `showCase()` обновляет `<p>` в `.dialogue__q`, заменяет `data-text` на `aiAnswer`, перезапускает typewriter.
+
+**Доступные case-id'ы:** `burnout`, `motivation` (default), `mission`, `conflict`, `fear`, `business`, `energy`, `leadership`, `direction`.
+
+**Контентные правила case-диалогов:**
+- Q-формулировка идентична тексту ссылки (с кавычками-«ёлочками»).
+- A-ответ строится по логике системы Маргулана (миссия → энергия → действие → план), но НЕ цитирует Маргулана дословно. Это платформенная интерпретация системы.
+- Атрибуция всегда «Логика системы · {логическая цепочка ответа}». Никогда не «Маргулан Сейсембай сказал…» — это нарушит правило 2.
+- Длина ответа: 4–7 предложений. Достаточно, чтобы typewriter длился 12–18 секунд — premium-tempo.
+
+**Добавление новой ситуации:**
+1. Добавь `<li>` в `.cases-list` с `data-case="newId"`.
+2. Добавь объект `newId: { q, a, attr }` в `caseDialogues` в JS.
+3. Не забудь обновить эту таблицу case-id'ов в CLAUDE.md.
 
 ## 7.5 Section break pattern
 
